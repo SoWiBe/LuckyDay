@@ -22,6 +22,17 @@ public class Dialog : MonoBehaviour
             textDisplay.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
+        NextSentence();
+    }
+
+    public void NextSentence()
+    {
+        if(index < senteces.Length - 1)
+        {
+            index++;
+            textDisplay.text = "";
+            StartCoroutine(Type());
+        }
     }
 
 }
