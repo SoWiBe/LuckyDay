@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class LineScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public LineRenderer line;
     private Vector3 mousePos;
     public Material material;
     private int currLine = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -44,7 +38,10 @@ public class LineScript : MonoBehaviour
             line.SetPosition(1, mousePos);
         }
     }
-
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.tag=="pointSecond")
+    //}
     public void createLine()
     {
         line = new GameObject("Line" + currLine).AddComponent<LineRenderer>();
