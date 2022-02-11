@@ -17,9 +17,7 @@ public class TriggersHelpManager : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent(out Player player))
         {
-            dialogWindow.SetActive(true);
-            animator.SetBool("isEnableHelpMessage", true);
-            firstDialog.StartDialog();
+            SetActiveMessage();
             Physics2D.IgnoreCollision(collider, GetComponent<Collider2D>());
         }
     }
@@ -28,5 +26,10 @@ public class TriggersHelpManager : MonoBehaviour
     {
         animator.SetBool("isEnableHelpMessage", false);
     }
-
+    public void SetActiveMessage()
+    {
+        dialogWindow.SetActive(true);
+        animator.SetBool("isEnableHelpMessage", true);
+        firstDialog.StartDialog();
+    }
 }
