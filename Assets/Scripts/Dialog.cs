@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Dialog : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI textDisplay;
+    [SerializeField] private Text textDisplay;
     [SerializeField] private string[] senteces;
     [SerializeField] private float typingSpeed;
 
-    private int index;
-   
+    private int index = 0;
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     public void StartDialog()
     {
         StartCoroutine(Type());
@@ -21,14 +27,8 @@ public class Dialog : MonoBehaviour
         for(int i = 0; i < senteces[index].ToCharArray().Length; i++)
         {
             textDisplay.text += senteces[index][i];
-
-            if(i == senteces[index].ToCharArray().Length - 1)
-            {
-
-            }
             yield return new WaitForSeconds(typingSpeed);
         }
-        NextSentence();
     }
 
     public void NextSentence()
@@ -39,6 +39,16 @@ public class Dialog : MonoBehaviour
             textDisplay.text = "";
             StartCoroutine(Type());
         }
+
+        Debug.Log("Content");
+    }
+
+
+    public void CloseDialogWindow()
+    {
+        if (index == senteces.Length - 1)
+            animator.SetBool("isVisible", false);
+        NextSentence();
     }
 
 }

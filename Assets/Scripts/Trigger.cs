@@ -27,7 +27,6 @@ public class Trigger : MonoBehaviour
             dialogWindow.SetActive(true);
             animator.SetBool("isVisible", true);
             firstDialog.StartDialog();
-
             Physics2D.IgnoreCollision(collider, GetComponent<Collider2D>());
         }
     }
