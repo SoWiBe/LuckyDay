@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
     {
         UpdateMovement();
         UpdateAnimation();
+
+        // test
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _playerAnimator.SetTrigger("interactTrigger");
+        }
     }
 
     private void UpdateMovement()
@@ -50,5 +56,24 @@ public class Player : MonoBehaviour
             localScale.x *= -1;
 
         transform.localScale = localScale;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // TODO: делаем проверку на вхождение в триггер
+        // если входим, то выполняем какие-либо события
+        // (запускаем катсцену, переходим на другую сцену, вызываем какое-либо закриптованный движ)
+        // Пример:
+        // if (other.CompareTag("runFightCutscene")) ...
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // TODO: делаем проверку на соприкосновение с каким-либо объектом
+        // пока что будем проверять по тэгу объекта
+        // (если в будущем узнаем, что это кал схема, то заменим на лучшее решение)
+        // Пример:
+        // if (collision.collider.CompareTag("enemy")) ...
     }
 }
