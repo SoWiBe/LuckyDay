@@ -4,52 +4,50 @@ using UnityEngine;
 
 public class LineScript : MonoBehaviour
 {
-
-    public LineRenderer line;
-    private Vector3 mousePos;
-    public Material material;
-    private int currLine = 0;
-
-    void Update()
+    public Transform sphere1;
+    public Transform sphere2;
+    private bool isLineCreating = false;
+    private Vector3 PointOnePos;
+    public Camera camera;
+    LineRenderer line;
+    void Start()
+    {
+        line = GetComponent<LineRenderer>();
+        line.positionCount = 4;
+        line.startWidth = 0.2f;
+        line.endWidth = 0.2f;
+    }
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (line == null)
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+            Physics.Raycast(ray, out raycastHit);
+            Debug.LogWarning(raycastHit.point);
+
+            Debug.LogWarning("FirstIf");
+            switch (raycastHit.transform.name)
             {
-                createLine();
+                case "PointOne":
+                    isLineCreating = true;
+                    PointOnePos = raycastHit.transform.position;
+                    Debug.LogWarning("PointOne");
+
+                    break;
+                case "PointSecond":
+                    if (isLineCreating)
+                    {
+                        line.SetPosition(0, PointOnePos);
+                        line.SetPosition(1, raycastHit.transform.position);
+                        isLineCreating = false;
+                    }
+                    Debug.LogWarning("PointSecond");
+
+                    break;
             }
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            line.SetPosition(0, mousePos);
-            line.SetPosition(1, mousePos);
+
         }
-        else if (Input.GetMouseButtonUp(0) && line)
-        {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            line.SetPosition(1, mousePos);
-            line = null;
-            currLine++;
-        }
-        else if (Input.GetMouseButton(0) && line)
-        {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            line.SetPosition(1, mousePos);
-        }
+        
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.tag=="pointSecond")
-    //}
-    public void createLine()
-    {
-        line = new GameObject("Line" + currLine).AddComponent<LineRenderer>();
-        line.material = material;
-        line.positionCount = 2;
-        line.startWidth = 0.15f;
-        line.endWidth = 0.15f;
-        line.useWorldSpace = false;
-        line.numCapVertices = 50;
-     }
 }
