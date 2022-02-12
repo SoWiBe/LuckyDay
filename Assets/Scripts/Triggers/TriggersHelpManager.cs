@@ -22,6 +22,12 @@ public class TriggersHelpManager : MonoBehaviour
         }
     }
 
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    SetInnactiveMessage();
+    //    Debug.Log("");
+    //}
+
     public void SetInnactiveMessage()
     {
         animator.SetBool("isEnableHelpMessage", false);
