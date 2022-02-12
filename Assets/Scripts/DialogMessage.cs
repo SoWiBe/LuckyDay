@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class Dialog : MonoBehaviour
+public class DialogMessage : MonoBehaviour
 {
     [SerializeField] private Text textDisplay;
     [SerializeField] private string[] senteces;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Extinguisher : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private Dialog firstDialog;
+    [SerializeField] private DialogMessage firstDialog;
     [SerializeField] private GameObject dialogWindow;
 
     private void OnTriggerEnter2D(Collider2D collider)
