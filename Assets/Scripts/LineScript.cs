@@ -6,53 +6,47 @@ using UnityEngine;
 public class LineScript : MonoBehaviour
 {
     public LineRenderer line;
-    [SerializeField]
-    GameObject sphere1;
-    [SerializeField]
-    GameObject sphere2;
-    float x, y;
-    private void Start()
+    private Vector3 mousePos;
+    public Material material;
+    private int currLine = 0;
+    void Update()
     {
-        line.startWidth = 0.1f;
-        line.endWidth = 0.1f;
-        line.positionCount = 0;
-        x = sphere1.transform.position.x;
-        y = sphere1.transform.position.y;
-    }
-    private void Update()
-    {
-        float x1 = Input.mousePosition.x;
-        float y1 = Input.mousePosition.y;
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 currentPoint = GetWorldCoordinate(Input.mousePosition);
-
-            Debug.Log(x);
-            Debug.Log(x);
-            if (x1 == x)
+            if (line == null)
             {
-                line.positionCount++;
-                line.SetPosition(line.positionCount - 1, currentPoint);
+                createLine();
             }
-
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            line.SetPosition(0, mousePos);
+            line.SetPosition(1, mousePos);
         }
-
-    }
-
-    private Vector2 GetWorldCoordinate(Vector3 mousePosition)
-    {
-        Vector2 mousePoint = new Vector3(mousePosition.x, mousePosition.y, 1);
-        return Camera.main.ScreenToWorldPoint(mousePoint);
-    }
-    private void OnMouseDown()
-    {
-        if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButtonUp(0) && line)
         {
-            Vector2 currentPoint = GetWorldCoordinate(Input.mousePosition);
-            line.positionCount++;
-            line.SetPosition(line.positionCount - 1, currentPoint);
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            line.SetPosition(1, mousePos);
+            line = null;
+            currLine++;
         }
-
+        else if (Input.GetMouseButton(0) && line)
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            line.SetPosition(1, mousePos);
+        }
+     
     }
 
+    public void createLine()
+    {
+        line = new GameObject("Line " + currLine).AddComponent<LineRenderer>();
+        line.material = material;
+        line.positionCount = 2;
+        line.startWidth = 0.15f;
+        line.endWidth = 0.15f;
+        line.useWorldSpace = false;
+        line.numCapVertices = 50;
+    }
 }

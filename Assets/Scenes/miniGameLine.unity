@@ -546,8 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   line: {fileID: 0}
-  sphere1: {fileID: 926842032}
-  sphere2: {fileID: 127859112}
+  material: {fileID: 0}
 --- !u!4 &1139205385
 Transform:
   m_ObjectHideFlags: 0
