@@ -1,53 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LineScript : MonoBehaviour
 {
-    public Transform sphere1;
-    public Transform sphere2;
-    private bool isLineCreating = false;
-    private Vector3 PointOnePos;
-    public Camera camera;
-    LineRenderer line;
-    void Start()
+    public LineRenderer line;
+    [SerializeField]
+    GameObject sphere1;
+    [SerializeField]
+    GameObject sphere2;
+    float x, y;
+    private void Start()
     {
-        line = GetComponent<LineRenderer>();
-        line.positionCount = 4;
-        line.startWidth = 0.2f;
-        line.endWidth = 0.2f;
+        line.startWidth = 0.1f;
+        line.endWidth = 0.1f;
+        line.positionCount = 0;
+        x = sphere1.transform.position.x;
+        y = sphere1.transform.position.y;
     }
     private void Update()
     {
+        float x1 = Input.mousePosition.x;
+        float y1 = Input.mousePosition.y;
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
-            Physics.Raycast(ray, out raycastHit);
-            Debug.LogWarning(raycastHit.point);
+            Vector2 currentPoint = GetWorldCoordinate(Input.mousePosition);
 
-            Debug.LogWarning("FirstIf");
-            switch (raycastHit.transform.name)
+            Debug.Log(x);
+            Debug.Log(x);
+            if (x1 == x)
             {
-                case "PointOne":
-                    isLineCreating = true;
-                    PointOnePos = raycastHit.transform.position;
-                    Debug.LogWarning("PointOne");
-
-                    break;
-                case "PointSecond":
-                    if (isLineCreating)
-                    {
-                        line.SetPosition(0, PointOnePos);
-                        line.SetPosition(1, raycastHit.transform.position);
-                        isLineCreating = false;
-                    }
-                    Debug.LogWarning("PointSecond");
-
-                    break;
+                line.positionCount++;
+                line.SetPosition(line.positionCount - 1, currentPoint);
             }
 
         }
-        
+
     }
+
+    private Vector2 GetWorldCoordinate(Vector3 mousePosition)
+    {
+        Vector2 mousePoint = new Vector3(mousePosition.x, mousePosition.y, 1);
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+    private void OnMouseDown()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 currentPoint = GetWorldCoordinate(Input.mousePosition);
+            line.positionCount++;
+            line.SetPosition(line.positionCount - 1, currentPoint);
+        }
+
+    }
+
 }
