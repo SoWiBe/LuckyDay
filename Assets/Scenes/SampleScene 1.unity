@@ -2315,7 +2315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1003886180
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2701,7 +2701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3491407b491d6c24890e8e1b85bf4f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstDialog: {fileID: 0}
   dialogWindow: {fileID: 1003886179}
 --- !u!1 &1657258892 stripped
 GameObject:
@@ -2908,7 +2907,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 212140623
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1671471142
 RectTransform:
