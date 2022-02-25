@@ -58,22 +58,30 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // TODO: делаем проверку на вхождение в триггер
         // если входим, то выполняем какие-либо события
         // (запускаем катсцену, переходим на другую сцену, вызываем какое-либо закриптованный движ)
         // Пример:
         // if (other.CompareTag("runFightCutscene")) ...
-
+        if (collision.CompareTag("Extinguisher"))
+        {
+            Debug.Log("test collision");
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // TODO: делаем проверку на соприкосновение с каким-либо объектом
         // пока что будем проверять по тэгу объекта
         // (если в будущем узнаем, что это кал схема, то заменим на лучшее решение)
         // Пример:
         // if (collision.collider.CompareTag("enemy")) ...
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("test collisio2n");
+        }
+        Debug.Log("test collision");
     }
 }
