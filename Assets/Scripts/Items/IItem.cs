@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IItem
 {
     string Name { get; }
-    Texture2D UIICon { get; }
+    Sprite UIICon { get; }
     
 }

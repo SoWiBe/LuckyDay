@@ -1,14 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Item")]
-class AssetItem : IItem
+[CreateAssetMenu(menuName = "Item")]
+public class AssetItem : IItem
 {
     public string Name => throw new NotImplementedException();
 
-    public Texture2D UIICon => throw new NotImplementedException();
+    public Sprite UIICon => throw new NotImplementedException();
 
     [SerializeField] private string name;
-    [SerializeField] private Texture2D _uiIcon;
+    [SerializeField] private Sprite _uiIcon;
 }
 
+ 
