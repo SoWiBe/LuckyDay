@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
 
     private Animator _playerAnimator;
 
+    private bool _isHandling = false;
+    private bool _isCanToHandThing = false;
+
     private void Start()
     {
         _playerAnimator = GetComponent<Animator>();
@@ -23,6 +26,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             _playerAnimator.SetTrigger("interactTrigger");
+            if (_isCanToHandThing)
+                Debug.Log(_isCanToHandThing);
         }
     }
 
@@ -67,7 +72,17 @@ public class Player : MonoBehaviour
         // if (other.CompareTag("runFightCutscene")) ...
         if (collision.CompareTag("Extinguisher"))
         {
-            Debug.Log("test collision");
+            this._isCanToHandThing = true;
+            Debug.Log("enter");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Extinguisher"))
+        {
+            this._isCanToHandThing = false;
+            Debug.Log("exit");
         }
     }
 
@@ -78,10 +93,12 @@ public class Player : MonoBehaviour
         // (если в будущем узнаем, что это кал схема, то заменим на лучшее решение)
         // Пример:
         // if (collision.collider.CompareTag("enemy")) ...
-        if (collision.gameObject.tag == "Player")
+
+        //probably useless lines
+        if (collision.gameObject.tag == "Extinguisher")
         {
             Debug.Log("test collisio2n");
         }
-        Debug.Log("test collision");
     }
+
 }
