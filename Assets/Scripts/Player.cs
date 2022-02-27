@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 1.5f;
+    [SerializeField] private float _speed = 1.5f;
 
-    private bool _isWalking = false;
+    [SerializeField] private GameObject extinguisher;
+
+    [SerializeField] private Transform holdExtinguisherPoint;
 
     private Animator _playerAnimator;
 
+    private bool _isWalking = false;
+
     private bool _isHandling = false;
+
     private bool _isCanToHandThing = false;
 
     private void Start()
@@ -21,13 +25,30 @@ public class Player : MonoBehaviour
     {
         UpdateMovement();
         UpdateAnimation();
+        PutOutFire();
 
-        // test
         if (Input.GetKeyDown(KeyCode.E))
         {
             _playerAnimator.SetTrigger("interactTrigger");
-            if (_isCanToHandThing)
-                Debug.Log(_isCanToHandThing);
+
+            if (_isCanToHandThing && !_isHandling)
+            {
+                this._isHandling = true;
+            }
+        }
+
+        if (_isHandling)
+            extinguisher.transform.position = holdExtinguisherPoint.position;
+
+    }
+
+    private void PutOutFire()
+    {
+        int water = 0;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            water++;
+            Debug.Log(water);
         }
     }
 
@@ -37,6 +58,11 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
 
         CheckToFlip(horizontal);
+        if (_isHandling)
+        {
+            CheckToFlipThing(horizontal, extinguisher);
+        }
+
         _isWalking = horizontal > 0 || horizontal < 0 || vertical > 0 || vertical < 0;
 
         Vector3 direction = new Vector3(horizontal, vertical, 0f);
@@ -63,17 +89,23 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    private void CheckToFlipThing(float horizontal, GameObject thing)
+    {
+        Vector3 localScale = thing.transform.localScale;
+
+        if (horizontal < 0 && localScale.x > 0)
+            localScale.x *= -1;
+        if (horizontal > 0 && localScale.x < 0)
+            localScale.x *= -1;
+
+        thing.transform.localScale = localScale;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // TODO: делаем проверку на вхождение в триггер
-        // если входим, то выполняем какие-либо события
-        // (запускаем катсцену, переходим на другую сцену, вызываем какое-либо закриптованный движ)
-        // Пример:
-        // if (other.CompareTag("runFightCutscene")) ...
         if (collision.CompareTag("Extinguisher"))
         {
             this._isCanToHandThing = true;
-            Debug.Log("enter");
         }
     }
 
@@ -82,7 +114,6 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Extinguisher"))
         {
             this._isCanToHandThing = false;
-            Debug.Log("exit");
         }
     }
 
@@ -95,10 +126,10 @@ public class Player : MonoBehaviour
         // if (collision.collider.CompareTag("enemy")) ...
 
         //probably useless lines
-        if (collision.gameObject.tag == "Extinguisher")
-        {
-            Debug.Log("test collisio2n");
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
 }
