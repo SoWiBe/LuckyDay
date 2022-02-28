@@ -10,6 +10,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] private ParticleSystem systemPutOutFire;
 
+    [SerializeField] private GameObject closeDoor;
+
+    [SerializeField] private AudioSource soundDoorOpen;
+
+    [SerializeField] private GameObject doorImage;
+
     private Animator _playerAnimator;
 
     private bool _isWalking = false;
@@ -17,6 +23,8 @@ public class Player : MonoBehaviour
     private bool _isHandling = false;
 
     private bool _isCanToHandThing = false;
+
+    private bool _isCanToOpenDoor = false;
 
     private void Start()
     {
@@ -36,6 +44,14 @@ public class Player : MonoBehaviour
             if (_isCanToHandThing && !_isHandling)
             {
                 this._isHandling = true;
+            }
+
+            if (_isCanToOpenDoor)
+            {
+                Destroy(closeDoor);
+                doorImage.SetActive(true);
+                soundDoorOpen.Play();
+                this._isCanToOpenDoor = false;
             }
         }
 
@@ -115,21 +131,19 @@ public class Player : MonoBehaviour
         {
             this._isCanToHandThing = false;
         }
+
+        if (collision.CompareTag("Door"))
+        {
+            this._isCanToOpenDoor = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // TODO: делаем проверку на соприкосновение с каким-либо объектом
-        // пока что будем проверять по тэгу объекта
-        // (если в будущем узнаем, что это кал схема, то заменим на лучшее решение)
-        // Пример:
-        // if (collision.collider.CompareTag("enemy")) ...
-
-        //probably useless lines
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    Destroy(gameObject);
-        //}
+        if (collision.gameObject.tag == "Door")
+        {
+            this._isCanToOpenDoor = true;
+        }
     }
 
 }
