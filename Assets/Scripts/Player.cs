@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform holdExtinguisherPoint;
 
+    [SerializeField] private ParticleSystem systemPutOutFire;
+
     private Animator _playerAnimator;
 
     private bool _isWalking = false;
@@ -44,11 +46,9 @@ public class Player : MonoBehaviour
 
     private void PutOutFire()
     {
-        int water = 0;
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && _isHandling)
         {
-            water++;
-            Debug.Log(water);
+            systemPutOutFire.Play();
         }
     }
 
