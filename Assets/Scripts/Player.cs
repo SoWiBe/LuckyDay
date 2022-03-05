@@ -123,6 +123,7 @@ public class Player : MonoBehaviour
         {
             this._isCanToHandThing = true;
         }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Extinguisher
   - Door
+  - Dialog
   layers:
   - Default
   - TransparentFX
