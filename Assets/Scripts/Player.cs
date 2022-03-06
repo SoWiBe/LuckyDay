@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioSource soundDoorOpen;
 
+    [SerializeField] private AudioSource soundFirePutOut;
+
     [SerializeField] private GameObject doorImage;
 
     private Animator _playerAnimator;
@@ -39,15 +41,15 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _playerAnimator.SetTrigger("interactTrigger");
-
             if (_isCanToHandThing && !_isHandling)
             {
+                _playerAnimator.SetBool("isExtinguisher", true);
                 this._isHandling = true;
             }
 
             if (_isCanToOpenDoor)
             {
+                _playerAnimator.SetTrigger("interactTrigger");
                 Destroy(closeDoor);
                 doorImage.SetActive(true);
                 soundDoorOpen.Play();
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && _isHandling)
         {
             systemPutOutFire.Play();
+            soundFirePutOut.Play();
         }
     }
 
@@ -91,6 +94,11 @@ public class Player : MonoBehaviour
             _playerAnimator.SetBool("isWalking", true);
         else
             _playerAnimator.SetBool("isWalking", false);
+
+        if (_isHandling && _isHandling)
+            _playerAnimator.SetBool("isWalkingWithThing", true);
+        else
+            _playerAnimator.SetBool("isWalkingWithThing", false);
     }
 
     public void CheckToFlip(float horizontal)

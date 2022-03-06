@@ -9,6 +9,6 @@ public class DialogueTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         FindObjectOfType<DialogSystem>().StartDialogue(dialog);
-
+        Destroy(gameObject);
     }
 }
