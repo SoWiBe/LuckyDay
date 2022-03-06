@@ -43,7 +43,6 @@ public class DialogSystem : MonoBehaviour
             sentences.Enqueue(sentence);
         }
 
-
         StartCoroutine(DoSentence());
     }
     public void DisplayNextSentence()
