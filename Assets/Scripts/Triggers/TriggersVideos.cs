@@ -10,8 +10,8 @@ public class TriggersVideos : MonoBehaviour
     private void Start()
     {
         //this for first start in game, needs to check this and play in dependence result
-        videoPlayer.SetActive(true);
-        Destroy(videoPlayer, timeToStop);
+        //videoPlayer.SetActive(true);
+        //Destroy(videoPlayer, timeToStop);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
