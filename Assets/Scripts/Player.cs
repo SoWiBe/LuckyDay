@@ -7,7 +7,19 @@ public class Player : MonoBehaviour
 
     private bool _isWalking = false;
 
+    private bool _joystickTouchStart = false;
+
+    private Vector2 _touchStartPoint;
+
+    private Vector2 _touchEndPoint;
+
     private Animator _playerAnimator;
+
+    [SerializeField]
+    private Transform _joystickInnerCircle;
+
+    [SerializeField]
+    private Transform _joystickOuterCircle;
 
     private void Start()
     {
@@ -17,6 +29,8 @@ public class Player : MonoBehaviour
     private void Update()
     {
         UpdateMovement();
+        UpdateJoystick();
+        UpdateJoystickMovement();
         UpdateAnimation();
 
         // test
@@ -26,15 +40,66 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void UpdateJoystick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _touchStartPoint =
+                Camera
+                    .main
+                    .ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                        Input.mousePosition.y,
+                        Camera.main.transform.position.z));
+
+            _joystickInnerCircle.transform.position = _touchStartPoint;
+            _joystickInnerCircle.GetComponent<SpriteRenderer>().enabled = true;
+            _joystickOuterCircle.transform.position = _touchStartPoint;
+            _joystickOuterCircle.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            _joystickTouchStart = true;
+            _touchEndPoint =
+                Camera
+                    .main
+                    .ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                        Input.mousePosition.y,
+                        Camera.main.transform.position.z));
+        }
+        else
+        {
+            _joystickTouchStart = false;
+            _joystickInnerCircle.GetComponent<SpriteRenderer>().enabled = false;
+            _joystickOuterCircle.GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
+
+    private void UpdateJoystickMovement()
+    {
+        if (_joystickTouchStart)
+        {
+            Vector2 offset = _touchEndPoint - _touchStartPoint;
+            Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
+            transform.Translate(direction * _speed * Time.deltaTime);
+
+            _joystickInnerCircle.transform.position =
+                new Vector2(_touchStartPoint.x + direction.x,
+                    _touchStartPoint.y + direction.y);
+        }
+    }
+
     private void UpdateMovement()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        CheckToFlip(horizontal);
-        _isWalking = horizontal > 0 || horizontal < 0 || vertical > 0 || vertical < 0;
+        CheckToFlip (horizontal);
+        _isWalking =
+            horizontal > 0 || horizontal < 0 || vertical > 0 || vertical < 0;
 
         Vector3 direction = new Vector3(horizontal, vertical, 0f);
+
         transform.Translate(direction * _speed * Time.deltaTime);
     }
 
@@ -50,30 +115,27 @@ public class Player : MonoBehaviour
     {
         Vector3 localScale = transform.localScale;
 
-        if (horizontal < 0 && localScale.x > 0)
-            localScale.x *= -1;
-        if (horizontal > 0 && localScale.x < 0)
-            localScale.x *= -1;
+        if (horizontal < 0 && localScale.x > 0) localScale.x *= -1;
+        if (horizontal > 0 && localScale.x < 0) localScale.x *= -1;
 
         transform.localScale = localScale;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO: делаем проверку на вхождение в триггер
-        // если входим, то выполняем какие-либо события
-        // (запускаем катсцену, переходим на другую сцену, вызываем какое-либо закриптованный движ)
-        // Пример:
+        // TODO: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ:
         // if (other.CompareTag("runFightCutscene")) ...
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // TODO: делаем проверку на соприкосновение с каким-либо объектом
-        // пока что будем проверять по тэгу объекта
-        // (если в будущем узнаем, что это кал схема, то заменим на лучшее решение)
-        // Пример:
+        // TODO: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // (пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ:
         // if (collision.collider.CompareTag("enemy")) ...
     }
 }
