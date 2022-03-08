@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TriggersHelpManager : MonoBehaviour
 {
-    [SerializeField] private HelpMessage firstDialog;
     [SerializeField] private GameObject dialogWindow;
 
     private Animator animator;
@@ -36,6 +35,5 @@ public class TriggersHelpManager : MonoBehaviour
     {
         dialogWindow.SetActive(true);
         animator.SetBool("isEnableHelpMessage", true);
-        firstDialog.StartDialog();
     }
 }

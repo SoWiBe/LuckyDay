@@ -2,10 +2,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 1.5f;
+    [SerializeField] private float _speed = 1.5f;
 
-    private bool _isWalking = false;
+    [SerializeField] private GameObject extinguisher;
+
+    [SerializeField] private Transform holdExtinguisherPoint;
+
+    [SerializeField] private ParticleSystem systemPutOutFire;
+
+    [SerializeField] private GameObject closeDoor;
+
+    [SerializeField] private AudioSource soundDoorOpen;
+
+    [SerializeField] private AudioSource soundFirePutOut;
+
+    [SerializeField] private GameObject doorImage;
 
     private bool _joystickTouchStart = false;
 
@@ -20,7 +31,15 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Transform _joystickOuterCircle;
+    
+    private bool _isWalking = false;
 
+    private bool _isHandling = false;
+
+    private bool _isCanToHandThing = false;
+
+    private bool _isCanToOpenDoor = false;
+    
     private void Start()
     {
         _playerAnimator = GetComponent<Animator>();
@@ -32,11 +51,37 @@ public class Player : MonoBehaviour
         UpdateJoystick();
         UpdateJoystickMovement();
         UpdateAnimation();
+        PutOutFire();
 
-        // test
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _playerAnimator.SetTrigger("interactTrigger");
+            if (_isCanToHandThing && !_isHandling)
+            {
+                _playerAnimator.SetBool("isExtinguisher", true);
+                this._isHandling = true;
+            }
+
+            if (_isCanToOpenDoor)
+            {
+                _playerAnimator.SetTrigger("interactTrigger");
+                Destroy(closeDoor);
+                doorImage.SetActive(true);
+                soundDoorOpen.Play();
+                this._isCanToOpenDoor = false;
+            }
+        }
+
+        if (_isHandling)
+            extinguisher.transform.position = holdExtinguisherPoint.position;
+
+    }
+
+    private void PutOutFire()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && _isHandling)
+        {
+            systemPutOutFire.Play();
+            soundFirePutOut.Play();
         }
     }
 
@@ -99,9 +144,13 @@ public class Player : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        CheckToFlip (horizontal);
-        _isWalking =
-            horizontal > 0 || horizontal < 0 || vertical > 0 || vertical < 0;
+        CheckToFlip(horizontal);
+        if (_isHandling)
+        {
+            CheckToFlipThing(horizontal, extinguisher);
+        }
+
+        _isWalking = horizontal > 0 || horizontal < 0 || vertical > 0 || vertical < 0;
 
         Vector3 direction = new Vector3(horizontal, vertical, 0f);
 
@@ -111,6 +160,11 @@ public class Player : MonoBehaviour
     private void UpdateAnimation()
     {
         _playerAnimator.SetBool("isWalking", _isWalking);
+
+        if (_isHandling && _isHandling)
+            _playerAnimator.SetBool("isWalkingWithThing", true);
+        else
+            _playerAnimator.SetBool("isWalkingWithThing", false);
     }
 
     public void CheckToFlip(float horizontal)
@@ -123,21 +177,45 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void CheckToFlipThing(float horizontal, GameObject thing)
     {
-        // TODO: ������ �������� �� ��������� � �������
-        // ���� ������, �� ��������� �����-���� �������
-        // (��������� ��������, ��������� �� ������ �����, �������� �����-���� �������������� ����)
-        // ������:
-        // if (other.CompareTag("runFightCutscene")) ...
+        Vector3 localScale = thing.transform.localScale;
+
+        if (horizontal < 0 && localScale.x > 0)
+            localScale.x *= -1;
+        if (horizontal > 0 && localScale.x < 0)
+            localScale.x *= -1;
+
+        thing.transform.localScale = localScale;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // TODO: ������ �������� �� ��������������� � �����-���� ��������
-        // ���� ��� ����� ��������� �� ���� �������
-        // (���� � ������� ������, ��� ��� ��� �����, �� ������� �� ������ �������)
-        // ������:
-        // if (collision.collider.CompareTag("enemy")) ...
+        if (collision.CompareTag("Extinguisher"))
+        {
+            this._isCanToHandThing = true;
+        }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Extinguisher"))
+        {
+            this._isCanToHandThing = false;
+        }
+
+        if (collision.CompareTag("Door"))
+        {
+            this._isCanToOpenDoor = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Door")
+        {
+            this._isCanToOpenDoor = true;
+        }
+    }
+
 }
