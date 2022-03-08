@@ -79,14 +79,19 @@ public class Player : MonoBehaviour
     {
         if (_joystickTouchStart)
         {
+            _isWalking = true;
             Vector2 offset = _touchEndPoint - _touchStartPoint;
             Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
             transform.Translate(direction * _speed * Time.deltaTime);
+
+            CheckToFlip(direction.x);
 
             _joystickInnerCircle.transform.position =
                 new Vector2(_touchStartPoint.x + direction.x,
                     _touchStartPoint.y + direction.y);
         }
+        else
+            _isWalking = false;
     }
 
     private void UpdateMovement()
@@ -105,10 +110,7 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        if (_isWalking)
-            _playerAnimator.SetBool("isWalking", true);
-        else
-            _playerAnimator.SetBool("isWalking", false);
+        _playerAnimator.SetBool("isWalking", _isWalking);
     }
 
     public void CheckToFlip(float horizontal)
