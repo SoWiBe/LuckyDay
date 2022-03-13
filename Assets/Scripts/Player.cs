@@ -90,15 +90,29 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        if (_isWalking)
+        if (_isWalking && !_isHandling)
+        {
             _playerAnimator.SetBool("isWalking", true);
-        else
+        }
+        else if (!_isWalking && !_isHandling)
+        {
             _playerAnimator.SetBool("isWalking", false);
-
-        if (_isHandling && _isHandling)
-            _playerAnimator.SetBool("isWalkingWithThing", true);
-        else
+        }
+        else if (_isHandling && !_isWalking)
+        {
+            _playerAnimator.SetBool("isWalking", false);
+            _playerAnimator.SetBool("isExtinguisher", true);
             _playerAnimator.SetBool("isWalkingWithThing", false);
+        }
+        else if (_isHandling && _isWalking)
+        {
+            _playerAnimator.SetBool("isWalking", false);
+            _playerAnimator.SetBool("isExtinguisher", true);
+            _playerAnimator.SetBool("isWalkingWithThing", true);
+
+        }
+        
+        
     }
 
     public void CheckToFlip(float horizontal)
