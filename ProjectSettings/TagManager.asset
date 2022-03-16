@@ -7,6 +7,8 @@ TagManager:
   - Extinguisher
   - Door
   - Dialog
+  - Fire
+  - Pena
   layers:
   - Default
   - TransparentFX
@@ -43,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Fire
+    uniqueID: 1704952983
     locked: 0
   - name: UI
     uniqueID: 212140623

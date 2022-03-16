@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
             if (_isCanToHandThing && !_isHandling)
             {
                 _playerAnimator.SetBool("isExtinguisher", true);
+                extinguisher.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Fire");
                 this._isHandling = true;
             }
 
@@ -159,12 +160,37 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimation()
     {
+<<<<<<< HEAD
+        if (_isWalking && !_isHandling)
+        {
+            _playerAnimator.SetBool("isWalking", true);
+        }
+        else if (!_isWalking && !_isHandling)
+        {
+            _playerAnimator.SetBool("isWalking", false);
+        }
+        else if (_isHandling && !_isWalking)
+        {
+            _playerAnimator.SetBool("isWalking", false);
+            _playerAnimator.SetBool("isExtinguisher", true);
+=======
         _playerAnimator.SetBool("isWalking", _isWalking);
 
         if (_isHandling && _isHandling)
             _playerAnimator.SetBool("isWalkingWithThing", true);
         else
+>>>>>>> main
             _playerAnimator.SetBool("isWalkingWithThing", false);
+        }
+        else if (_isHandling && _isWalking)
+        {
+            _playerAnimator.SetBool("isWalking", false);
+            _playerAnimator.SetBool("isExtinguisher", true);
+            _playerAnimator.SetBool("isWalkingWithThing", true);
+
+        }
+        
+        
     }
 
     public void CheckToFlip(float horizontal)
