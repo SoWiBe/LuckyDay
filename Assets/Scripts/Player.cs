@@ -160,7 +160,6 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimation()
     {
-<<<<<<< HEAD
         if (_isWalking && !_isHandling)
         {
             _playerAnimator.SetBool("isWalking", true);
@@ -169,19 +168,6 @@ public class Player : MonoBehaviour
         {
             _playerAnimator.SetBool("isWalking", false);
         }
-        else if (_isHandling && !_isWalking)
-        {
-            _playerAnimator.SetBool("isWalking", false);
-            _playerAnimator.SetBool("isExtinguisher", true);
-=======
-        _playerAnimator.SetBool("isWalking", _isWalking);
-
-        if (_isHandling && _isHandling)
-            _playerAnimator.SetBool("isWalkingWithThing", true);
-        else
->>>>>>> main
-            _playerAnimator.SetBool("isWalkingWithThing", false);
-        }
         else if (_isHandling && _isWalking)
         {
             _playerAnimator.SetBool("isWalking", false);
@@ -189,8 +175,6 @@ public class Player : MonoBehaviour
             _playerAnimator.SetBool("isWalkingWithThing", true);
 
         }
-        
-        
     }
 
     public void CheckToFlip(float horizontal)
