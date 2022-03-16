@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
             if (_isCanToHandThing && !_isHandling)
             {
                 _playerAnimator.SetBool("isExtinguisher", true);
+                extinguisher.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Fire");
                 this._isHandling = true;
             }
 
