@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     private bool _joystickTouchStart = false;
 
+    [SerializeField] Joystick joystick;
+
     private Vector2 _touchStartPoint;
 
     private Vector2 _touchEndPoint;
@@ -40,8 +42,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         UpdateMovement();
-        UpdateJoystick();
-        UpdateJoystickMovement();
         UpdateAnimation();
         PutOutFire();
 
@@ -127,8 +127,8 @@ public class Player : MonoBehaviour
 
     private void UpdateMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = joystick.Horizontal;
+        float vertical = joystick.Vertical;
 
         CheckToFlip(horizontal);
         if (_isHandling)

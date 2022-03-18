@@ -10,14 +10,19 @@ public class Door : MonoBehaviour
 
     [SerializeField] private AudioSource soundDoorOpen;
 
-    private bool _isOpen = false;
+    public bool _isOpen = false;
     private Animator _playerAnimator;
 
     public void OpenDoor()
     {
-        this._isOpen = !_isOpen;
-        closeDoor.SetActive(!_isOpen);
-        doorImage.SetActive(this._isOpen);
+        closeDoor.SetActive(_isOpen);
+        _isOpen = !_isOpen;
+        Debug.Log(_isOpen);
+        doorImage.SetActive(_isOpen);
         soundDoorOpen.Play();
+    }
+    private void OnMouseDown()
+    {
+        OpenDoor();
     }
 }
