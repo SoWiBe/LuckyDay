@@ -9,6 +9,7 @@ TagManager:
   - Dialog
   - Fire
   - Pena
+  - Entrance
   layers:
   - Default
   - TransparentFX

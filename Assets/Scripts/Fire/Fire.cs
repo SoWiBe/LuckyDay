@@ -18,11 +18,23 @@ public class Fire : MonoBehaviour
     [SerializeField] private GameObject holdPoint;
     [SerializeField] private Player player;
     [SerializeField] private GameObject btnExtinguisher;
+    [SerializeField] private AudioSource audioAfterFireDone;
 
     private Animator animatorText, animatorSiren, animatorPlayer;
     private bool _isFireOut;
     private bool _isFireDone;
     private int count = 0;
+    public bool FireDone
+    {
+        get
+        {
+            return _isFireDone;
+        }
+        set
+        {
+            _isFireDone = value;
+        }
+    }
 
     private void Start()
     {
@@ -70,7 +82,8 @@ public class Fire : MonoBehaviour
                 Destroy(firesElements[9]);
                 Destroy(firesElements[10]);
                 Destroy(firesElements[11]);
-                CheckFireToDone(true);
+                FireDone = true;
+                CheckFireToDone(FireDone);
             }
         }
     }
@@ -80,13 +93,19 @@ public class Fire : MonoBehaviour
         if (fireDone)
         {
             timer.TimeOn = false;
+            player.StopPena();
             StopMusic();
             SetAnimationAfterFire();
             redScreen.SetActive(false);
             dialogueTrigger.StartDialog();
             btnExtinguisher.SetActive(false);
+            InvokeRepeating("PlaySoundDoor", 8f, 14);
             SetPositionToExtinguisher();
         }
+    }
+    public void PlaySoundDoor()
+    {
+        audioAfterFireDone.Play();
     }
     private void StopMusic()
     {
@@ -118,6 +137,4 @@ public class Fire : MonoBehaviour
             this._isFireOut = false;
         }
     }
-
-
 }

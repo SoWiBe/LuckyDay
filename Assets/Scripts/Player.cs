@@ -16,22 +16,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Fire fire;
 
-    private bool _joystickTouchStart = false;
-
     [SerializeField] Joystick joystick;
-
-    private Vector2 _touchStartPoint;
-
-    private Vector2 _touchEndPoint;
 
     private Animator _playerAnimator;
 
-    [SerializeField]
-    private Transform _joystickInnerCircle;
-
-    [SerializeField]
-    private Transform _joystickOuterCircle;
-    
     private bool _isWalking = false;
 
     private bool _isHandling = false;
@@ -55,7 +43,6 @@ public class Player : MonoBehaviour
     {
         UpdateMovement();
         UpdateAnimation();
-        PutOutFire();
 
         if (_isHandling)
         {
@@ -64,21 +51,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PutOutFire()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && _isHandling)
-        {
-            systemPutOutFire.Play();
-            soundFirePutOut.Play();
-            fire.CheckToPutOutFire();
-        }
-    }
-
     public void OutFire()
     {
         systemPutOutFire.Play();
         soundFirePutOut.Play();
         fire.CheckToPutOutFire();
+    }
+
+    public void StopPena()
+    {
+        systemPutOutFire.Stop();
+        soundFirePutOut.Stop();
     }
 
     public void GetExtinguisher()
@@ -103,6 +86,11 @@ public class Player : MonoBehaviour
         {
             this._isCanToHandThing = true;
         }
+
+        if (collision.CompareTag("Entrance") && fire.FireDone)
+        {
+            Debug.Log("Всем ку");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -111,62 +99,6 @@ public class Player : MonoBehaviour
         {
             this._isCanToHandThing = false;
         }
-    }
-
-    private void UpdateJoystick()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _touchStartPoint =
-                Camera
-                    .main
-                    .ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                        Input.mousePosition.y,
-                        Camera.main.transform.position.z));
-
-            _joystickInnerCircle.transform.position = _touchStartPoint;
-            _joystickInnerCircle.GetComponent<SpriteRenderer>().enabled = true;
-            _joystickOuterCircle.transform.position = _touchStartPoint;
-            _joystickOuterCircle.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            _joystickTouchStart = true;
-            _touchEndPoint =
-                Camera
-                    .main
-                    .ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                        Input.mousePosition.y,
-                        Camera.main.transform.position.z));
-        }
-        else
-        {
-            _joystickTouchStart = false;
-            _joystickInnerCircle.GetComponent<SpriteRenderer>().enabled = false;
-            _joystickOuterCircle.GetComponent<SpriteRenderer>().enabled = false;
-        }
-    }
-
-    private void UpdateJoystickMovement()
-    {
-        if (_joystickTouchStart)
-        {
-            _isWalking = true;
-            Vector2 offset = _touchEndPoint - _touchStartPoint;
-            Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
-            transform.Translate(direction * _speed * Time.deltaTime);
-
-            CheckToFlip(direction.x);
-            if(_isHandling)
-                CheckToFlipThing(direction.x, extinguisher);
-
-            _joystickInnerCircle.transform.position =
-                new Vector2(_touchStartPoint.x + direction.x,
-                    _touchStartPoint.y + direction.y);
-        }
-        else
-            _isWalking = false;
     }
 
     private void UpdateMovement()
