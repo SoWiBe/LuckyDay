@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Extinguisher : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    [SerializeField] private Player player;
+
+    private void OnMouseDown()
     {
-        Debug.Log(0);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Destroy(gameObject);
-        }
+        player.GetExtinguisher();
     }
 }

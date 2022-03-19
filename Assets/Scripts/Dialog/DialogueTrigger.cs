@@ -10,8 +10,13 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            FindObjectOfType<DialogSystem>().StartDialogue(dialog);
-            Destroy(gameObject);
+            StartDialog();
         }
+    }
+
+    public void StartDialog()
+    {
+        FindObjectOfType<DialogSystem>().StartDialogue(dialog);
+        Destroy(gameObject);
     }
 }

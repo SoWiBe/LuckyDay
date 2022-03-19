@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioSource soundFirePutOut;
 
+    [SerializeField] private GameObject buttonExtinguisher;
+
+    [SerializeField] private Fire fire;
+
     private bool _joystickTouchStart = false;
 
     [SerializeField] Joystick joystick;
@@ -32,6 +36,14 @@ public class Player : MonoBehaviour
 
     private bool _isHandling = false;
 
+    public bool Handling
+    {
+        set
+        {
+            _isHandling = value;
+        }
+    }
+
     private bool _isCanToHandThing = false;
     
     private void Start()
@@ -45,19 +57,11 @@ public class Player : MonoBehaviour
         UpdateAnimation();
         PutOutFire();
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (_isCanToHandThing && !_isHandling)
-            {
-                _playerAnimator.SetBool("isExtinguisher", true);
-                extinguisher.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Fire");
-                this._isHandling = true;
-            }
-        }
-
         if (_isHandling)
-            extinguisher.transform.position = holdExtinguisherPoint.position;
-
+        {
+            SetPositionToExtinguisher();
+            buttonExtinguisher.SetActive(true);
+        }
     }
 
     private void PutOutFire()
@@ -66,6 +70,46 @@ public class Player : MonoBehaviour
         {
             systemPutOutFire.Play();
             soundFirePutOut.Play();
+            fire.CheckToPutOutFire();
+        }
+    }
+
+    public void OutFire()
+    {
+        systemPutOutFire.Play();
+        soundFirePutOut.Play();
+        fire.CheckToPutOutFire();
+    }
+
+    public void GetExtinguisher()
+    {
+        if (_isCanToHandThing && !_isHandling)
+        {
+            _playerAnimator.SetBool("isExtinguisher", true);
+            extinguisher.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Fire");
+            this._isHandling = true;
+            SetPositionToExtinguisher();
+        }
+    }
+
+    private void SetPositionToExtinguisher()
+    {
+        extinguisher.transform.position = holdExtinguisherPoint.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Extinguisher"))
+        {
+            this._isCanToHandThing = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Extinguisher"))
+        {
+            this._isCanToHandThing = false;
         }
     }
 
@@ -189,22 +233,5 @@ public class Player : MonoBehaviour
             localScale.x *= -1;
 
         thing.transform.localScale = localScale;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Extinguisher"))
-        {
-            this._isCanToHandThing = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Extinguisher"))
-        {
-            this._isCanToHandThing = false;
-        }
-
     }
 }

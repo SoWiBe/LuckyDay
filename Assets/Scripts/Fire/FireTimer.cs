@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FireTimer : MonoBehaviour
 {
@@ -10,6 +9,13 @@ public class FireTimer : MonoBehaviour
 
     private float _timeLeft = 0f;
     private bool _timerOn = false;
+    public bool TimeOn
+    {
+        set
+        {
+            _timerOn = value;
+        }
+    }
 
     void Start()
     {
@@ -30,6 +36,7 @@ public class FireTimer : MonoBehaviour
             {
                 _timeLeft = time;
                 _timerOn = false;
+                SceneManager.LoadScene("Die");
             }
         }
     }

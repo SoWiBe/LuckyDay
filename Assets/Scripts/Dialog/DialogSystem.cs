@@ -34,7 +34,6 @@ public class DialogSystem : MonoBehaviour
 
     public void StartDialogue (Dialog dialog)
     {
-        Debug.Log("Starting conversation dialog: " + dialog.name);
         OpenDialogWindow();
         sentences.Clear();
 

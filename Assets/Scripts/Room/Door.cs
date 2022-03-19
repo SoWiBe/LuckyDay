@@ -17,7 +17,6 @@ public class Door : MonoBehaviour
     {
         closeDoor.SetActive(_isOpen);
         _isOpen = !_isOpen;
-        Debug.Log(_isOpen);
         doorImage.SetActive(_isOpen);
         soundDoorOpen.Play();
     }
