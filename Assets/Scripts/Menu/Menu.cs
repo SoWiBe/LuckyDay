@@ -1,11 +1,38 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private GameObject continueBtn;
+
+    private Button btnContinue;
+    [SerializeField]
+    private Button btnStages;
+
+    private int completeLevels;
+    private void Start()
+    {
+        btnContinue = continueBtn.GetComponent<Button>();
+        completeLevels = PlayerPrefs.GetInt("CompleteLevels");
+        if(completeLevels > 1)
+        {
+            btnContinue.interactable = true;
+            btnStages.interactable = true;
+        }
+    }
+
+    private void Update()
+    {
+        completeLevels = PlayerPrefs.GetInt("CompleteLevels");
+    }
+
     public void CreateNewGame()
     {
-        SceneManager.LoadScene("FlatScene");
+        btnContinue.interactable = false;
+        btnStages.interactable = false;
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("Prolog");
     }
 
     public void OpenMenu()
@@ -13,6 +40,20 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void LoadLastStage() { }
+    public void Continue()
+    {
+        completeLevels = PlayerPrefs.GetInt("CompleteLevels");
+        SceneManager.LoadScene(completeLevels + 1);
+    }
+
+    public void OpenStages()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void StartProlog()
+    {
+        SceneManager.LoadScene("Prolog");
+    }
 
 }

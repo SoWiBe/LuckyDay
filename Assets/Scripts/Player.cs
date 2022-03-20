@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject buttonExtinguisher;
 
+    [SerializeField] private LevelManager levelManager;
+
     [SerializeField] private Fire fire;
 
     [SerializeField] Joystick joystick;
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour
     private bool _isWalking = false;
 
     private bool _isHandling = false;
+
+    private int completeLevels;
 
     public bool Handling
     {
@@ -43,12 +47,17 @@ public class Player : MonoBehaviour
     {
         UpdateMovement();
         UpdateAnimation();
-
+        UpdateLevels();
         if (_isHandling)
         {
             SetPositionToExtinguisher();
             buttonExtinguisher.SetActive(true);
         }
+    }
+
+    private void UpdateLevels()
+    {
+        completeLevels = PlayerPrefs.GetInt("CompleteLevels", 1);
     }
 
     public void OutFire()
@@ -89,10 +98,20 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("Entrance") && fire.FireDone)
         {
-            Debug.Log("Всем ку");
+            fire.StartWhiteScreen();
+            int completeLevels = PlayerPrefs.GetInt("CompleteLevels");
+            if(completeLevels < 2)
+            {
+                PlayerPrefs.SetInt("CompleteLevels", 2);
+            }
+            Invoke("SetNextLevel", 4f);
         }
     }
 
+    private void SetNextLevel()
+    {
+        levelManager.NextLevel();
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Extinguisher"))

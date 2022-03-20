@@ -19,8 +19,9 @@ public class Fire : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private GameObject btnExtinguisher;
     [SerializeField] private AudioSource audioAfterFireDone;
+    [SerializeField] private GameObject whiteFinal;
 
-    private Animator animatorText, animatorSiren, animatorPlayer;
+    private Animator animatorText, animatorSiren, animatorPlayer, animatorWhiteScreen;
     private bool _isFireOut;
     private bool _isFireDone;
     private int count = 0;
@@ -41,6 +42,7 @@ public class Fire : MonoBehaviour
         animatorPlayer = player.GetComponent<Animator>();
         animatorText = textTimer.GetComponent<Animator>();
         animatorSiren = sirena.GetComponent<Animator>();
+        animatorWhiteScreen = whiteFinal.GetComponent<Animator>();
     }
 
     public void CheckToPutOutFire()
@@ -99,13 +101,18 @@ public class Fire : MonoBehaviour
             redScreen.SetActive(false);
             dialogueTrigger.StartDialog();
             btnExtinguisher.SetActive(false);
-            InvokeRepeating("PlaySoundDoor", 8f, 14);
+            Invoke("PlaySoundDoor", 1f);
             SetPositionToExtinguisher();
         }
     }
     public void PlaySoundDoor()
     {
         audioAfterFireDone.Play();
+    }
+    public void StartWhiteScreen()
+    {
+        whiteFinal.SetActive(true);
+        animatorWhiteScreen.SetTrigger("isFinalProlog");
     }
     private void StopMusic()
     {

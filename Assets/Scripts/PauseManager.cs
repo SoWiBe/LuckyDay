@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseWindow;
-    [SerializeField] private AudioSource sirenSound;
+    [SerializeField] private AudioSource secondSound;
     [SerializeField] private AudioSource mainSoundTheme;
 
     private bool isMusic;
@@ -20,9 +20,9 @@ public class PauseManager : MonoBehaviour
 
     public void OpenPauseWindow()
     {
-        if (sirenSound.isPlaying && mainSoundTheme.isPlaying)
+        if (secondSound.isPlaying && mainSoundTheme.isPlaying)
         {
-            sirenSound.Pause();
+            secondSound.Pause();
             mainSoundTheme.Pause();
             isMusic = true;
         }
@@ -33,7 +33,7 @@ public class PauseManager : MonoBehaviour
     {
         if (isMusic)
         {
-            sirenSound.Play();
+            secondSound.Play();
             mainSoundTheme.Play();
         }
 
