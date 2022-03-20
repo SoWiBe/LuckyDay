@@ -2294,6 +2294,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1710958430}
     - target: {fileID: 3523343361294798803, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
+      propertyPath: secondSound
+      value: 
+      objectReference: {fileID: 1582167084}
+    - target: {fileID: 3523343361294798803, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
       propertyPath: mainSoundTheme
       value: 
       objectReference: {fileID: 962340206}
@@ -2904,12 +2908,20 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5348774056099686863, guid: d297d79b42482a94cb65f41129e19860, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7984
+      objectReference: {fileID: 0}
+    - target: {fileID: 5348774056099686863, guid: d297d79b42482a94cb65f41129e19860, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8524
+      objectReference: {fileID: 0}
+    - target: {fileID: 5348774056099686863, guid: d297d79b42482a94cb65f41129e19860, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.03
+      value: -5.84
       objectReference: {fileID: 0}
     - target: {fileID: 5348774056099686863, guid: d297d79b42482a94cb65f41129e19860, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4260511
+      value: -2.48
       objectReference: {fileID: 0}
     - target: {fileID: 5348774056099686863, guid: d297d79b42482a94cb65f41129e19860, type: 3}
       propertyPath: m_LocalPosition.z

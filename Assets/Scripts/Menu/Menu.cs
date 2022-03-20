@@ -42,7 +42,7 @@ public class Menu : MonoBehaviour
 
     public void Continue()
     {
-        completeLevels = PlayerPrefs.GetInt("CompleteLevels");
+        completeLevels = PlayerPrefs.GetInt("CompleteLevels", 1);
         SceneManager.LoadScene(completeLevels + 1);
     }
 
@@ -56,4 +56,8 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene("Prolog");
     }
 
+    public void StartNightDay()
+    {
+        SceneManager.LoadScene("NightDay");
+    }
 }
