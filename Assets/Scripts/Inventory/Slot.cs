@@ -6,6 +6,15 @@ public class Slot : MonoBehaviour
 {
     private Inventory inventory;
     public int i;
+    private bool _isPickup;
+    public bool IsPickup
+    {
+        get
+        {
+            return _isPickup;
+        }
+        set { }
+    }
     private void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -25,4 +34,6 @@ public class Slot : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
     }
+
+   
 }

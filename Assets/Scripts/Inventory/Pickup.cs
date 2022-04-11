@@ -6,6 +6,7 @@ public class Pickup : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject slotButton;
+    private bool _isPickup = false;
     private void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -14,7 +15,22 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            for (int i = 0; i <inventory.slots.Length; i++)
+            _isPickup = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isPickup = false;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (_isPickup)
+        {
+            for (int i = 0; i < inventory.slots.Length; i++)
             {
                 if (inventory.isFull[i] == false)
                 {
@@ -25,5 +41,6 @@ public class Pickup : MonoBehaviour
                 }
             }
         }
+
     }
 }

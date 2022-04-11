@@ -20,6 +20,7 @@ public class Fire : MonoBehaviour
     [SerializeField] private GameObject btnExtinguisher;
     [SerializeField] private AudioSource audioAfterFireDone;
     [SerializeField] private GameObject whiteFinal;
+    [SerializeField] private ExtinguisherManager extinguisherManager;
 
     private Animator animatorText, animatorSiren, animatorPlayer, animatorWhiteScreen;
     private bool _isFireOut;
@@ -45,13 +46,13 @@ public class Fire : MonoBehaviour
         animatorWhiteScreen = whiteFinal.GetComponent<Animator>();
     }
 
-    public void CheckToPutOutFire()
+    public void CheckToPutOutFire(float timePutOut)
     {
         if (_isFireOut && !_isFireDone)
         {
             count++;
 
-            if (count == 5)
+            if (timePutOut == 5)
             {
                 Destroy(firesElements[0]);
                 Destroy(firesElements[1]);
@@ -60,7 +61,7 @@ public class Fire : MonoBehaviour
                 Destroy(smokeElements[1]);
                 Destroy(smokeElements[5]);
             }
-            else if (count == 10)
+            else if (timePutOut == 7)
             {
                 Destroy(firesElements[2]);
                 Destroy(firesElements[3]);
@@ -69,14 +70,14 @@ public class Fire : MonoBehaviour
                 Destroy(smokeElements[3]);
                 Destroy(smokeElements[6]);
             }
-            else if (count == 15)
+            else if (timePutOut == 9)
             {
                 Destroy(firesElements[4]);
                 Destroy(firesElements[8]);
                 Destroy(firesElements[7]);
                 Destroy(smokeElements[4]);
             }
-            else if (count == 20)
+            else if (timePutOut == 11)
             {
                 Destroy(smokeElements[7]);
                 Destroy(smokeElements[8]);
@@ -95,7 +96,7 @@ public class Fire : MonoBehaviour
         if (fireDone)
         {
             timer.TimeOn = false;
-            player.StopPena();
+            extinguisherManager.StopPena();
             StopMusic();
             SetAnimationAfterFire();
             redScreen.SetActive(false);

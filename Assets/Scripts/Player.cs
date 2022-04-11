@@ -8,10 +8,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform holdExtinguisherPoint;
 
-    [SerializeField] private ParticleSystem systemPutOutFire;
-
-    [SerializeField] private AudioSource soundFirePutOut;
-
     [SerializeField] private GameObject buttonExtinguisher;
 
     [SerializeField] private LevelManager levelManager;
@@ -19,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Fire fire;
 
     [SerializeField] Joystick joystick;
+
+    
 
     private Animator _playerAnimator;
 
@@ -41,6 +39,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _playerAnimator = GetComponent<Animator>();
+        completeLevels = levelManager.CompleteLevels;
     }
 
     private void Update()
@@ -60,18 +59,7 @@ public class Player : MonoBehaviour
         completeLevels = PlayerPrefs.GetInt("CompleteLevels", 1);
     }
 
-    public void OutFire()
-    {
-        systemPutOutFire.Play();
-        soundFirePutOut.Play();
-        fire.CheckToPutOutFire();
-    }
-
-    public void StopPena()
-    {
-        systemPutOutFire.Stop();
-        soundFirePutOut.Stop();
-    }
+  
 
     public void GetExtinguisher()
     {
@@ -112,6 +100,7 @@ public class Player : MonoBehaviour
     {
         levelManager.NextLevel();
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Extinguisher"))

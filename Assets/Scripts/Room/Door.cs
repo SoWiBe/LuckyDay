@@ -6,12 +6,10 @@ public class Door : MonoBehaviour
 {
     [SerializeField] private GameObject closeDoor;
     [SerializeField] private GameObject doorImage;
-    [SerializeField] private GameObject player;
 
     [SerializeField] private AudioSource soundDoorOpen;
 
     public bool _isOpen = false;
-    private Animator _playerAnimator;
 
     public void OpenDoor()
     {

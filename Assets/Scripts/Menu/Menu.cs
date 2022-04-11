@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject continueBtn;
+    [SerializeField] private GameObject closeImage;
 
     private Button btnContinue;
     [SerializeField]
@@ -14,11 +15,15 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         btnContinue = continueBtn.GetComponent<Button>();
+        btnContinue.interactable = false;
+        btnStages.interactable = false;
+        closeImage.SetActive(true);
         completeLevels = PlayerPrefs.GetInt("CompleteLevels");
         if(completeLevels > 1)
         {
             btnContinue.interactable = true;
             btnStages.interactable = true;
+            closeImage.SetActive(false);
         }
     }
 
@@ -32,6 +37,11 @@ public class Menu : MonoBehaviour
         btnContinue.interactable = false;
         btnStages.interactable = false;
         PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("Prolog");
+    }
+    
+    public void TryAgain()
+    {
         SceneManager.LoadScene("Prolog");
     }
 

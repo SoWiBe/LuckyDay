@@ -4,6 +4,18 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     private int completeLevels;
+    public int CompleteLevels
+    {
+        get
+        {
+            return completeLevels;
+        }
+        set
+        {
+            if (value != 0)
+                completeLevels = value;
+        }
+    }
     private void Start()
     {
         completeLevels = PlayerPrefs.GetInt("CompleteLevels");
@@ -13,6 +25,4 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-
-    
 }
