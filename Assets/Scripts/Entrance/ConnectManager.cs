@@ -5,7 +5,10 @@ using UnityEngine;
 public class ConnectManager : MonoBehaviour
 {
     [SerializeField] private GameConnectLine[] connectionLines;
-    private bool isGame { get; set; }
+    [SerializeField] private GameObject[] roomLights;
+    [SerializeField] private GameObject[] kitchenLights;
+    [SerializeField] private GameObject[] entranceLights;
+    public bool isGame { get; set; }
     private bool isStepOne { get; set; }
     private bool isStepTwo { get; set; }
     private bool isStepThree { get; set; }
@@ -39,6 +42,7 @@ public class ConnectManager : MonoBehaviour
         if (connectionLines[0].isConnected)
         {
             isStepOne = false;
+            TurnOnLight(roomLights);
         }
         
     }
@@ -47,14 +51,15 @@ public class ConnectManager : MonoBehaviour
         if (connectionLines[1].isConnected)
         {
             isStepTwo = false;
+            TurnOnLight(kitchenLights);
         }
-        
     }
     private void CheckStepThree()
     {
         if (connectionLines[2].isConnected)
         {
             isStepThree = false;
+            TurnOnLight(entranceLights);
         }
     }
 
@@ -64,6 +69,14 @@ public class ConnectManager : MonoBehaviour
         {
             isStepFour = false;
             isGame = false;
+        }
+    }
+
+    private void TurnOnLight(GameObject[] lights)
+    {
+        foreach (var item in lights)
+        {
+            item.SetActive(true);
         }
     }
 

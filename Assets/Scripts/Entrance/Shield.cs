@@ -12,7 +12,7 @@ public class Shield : MonoBehaviour
     [SerializeField] private GameObject player;
 
     [SerializeField] PointControl[] pointControls;
-
+    [SerializeField] private ConnectManager ConnectManager;
     private void OnMouseDown()
     {
         isOpenShield = !isOpenShield;
