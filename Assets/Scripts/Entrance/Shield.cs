@@ -10,14 +10,28 @@ public class Shield : MonoBehaviour
     [SerializeField] private GameObject joystick;
     [SerializeField] private GameObject canvasShield;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject chest;
+
+    [SerializeField] private Pickup[] inventoryItems;
+    [SerializeField] private DialogueTrigger dialogueTrigger;
 
     [SerializeField] PointControl[] pointControls;
     [SerializeField] private ConnectManager ConnectManager;
+
     private void OnMouseDown()
     {
-        isOpenShield = !isOpenShield;
-        canvasShield.SetActive(isOpenShield);
-        SetStatusActiveObjects();
+        if (!inventoryItems[0].isTaked)
+        {
+            dialogueTrigger.StartDialog();
+            return;
+        }
+
+        if (ConnectManager.isGame)
+        {
+            isOpenShield = !isOpenShield;
+            canvasShield.SetActive(true);
+            SetStatusActiveObjects();
+        }
     }
 
     private void SetStatusActiveObjects()
@@ -25,6 +39,7 @@ public class Shield : MonoBehaviour
         inventory.SetActive(!isOpenShield);
         player.SetActive(!isOpenShield);
         joystick.SetActive(!isOpenShield);
+        chest.SetActive(!isOpenShield);
     }
 
     public void CloseShield()

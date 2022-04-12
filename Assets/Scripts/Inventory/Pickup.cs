@@ -5,8 +5,10 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     private Inventory inventory;
+    [SerializeField] private string Name;
     public GameObject slotButton;
     private bool _isPickup = false;
+    public bool isTaked { get; set; }
     private void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -30,6 +32,7 @@ public class Pickup : MonoBehaviour
     {
         if (_isPickup)
         {
+            isTaked = true;
             for (int i = 0; i < inventory.slots.Length; i++)
             {
                 if (inventory.isFull[i] == false)

@@ -8,6 +8,9 @@ public class ConnectManager : MonoBehaviour
     [SerializeField] private GameObject[] roomLights;
     [SerializeField] private GameObject[] kitchenLights;
     [SerializeField] private GameObject[] entranceLights;
+    [SerializeField] private Shield shieldOpen;
+    [SerializeField] private AudioSource lightOn;
+    [SerializeField] private GameObject chooseWays;
     public bool isGame { get; set; }
     private bool isStepOne { get; set; }
     private bool isStepTwo { get; set; }
@@ -34,7 +37,9 @@ public class ConnectManager : MonoBehaviour
                 CheckStepThree();
             if (isStepFour)
                 CheckStepFour();
-        } 
+            if (!isStepOne && !isStepTwo && !isStepThree && !isStepFour)
+                SetGameFinal();
+        }
     }
 
     private void CheckStepOne()
@@ -68,8 +73,15 @@ public class ConnectManager : MonoBehaviour
         if (connectionLines[3].isConnected)
         {
             isStepFour = false;
-            isGame = false;
         }
+    }
+
+    private void SetGameFinal()
+    {
+        isGame = false;
+        shieldOpen.CloseShield();
+        lightOn.Play();
+        chooseWays.SetActive(true);
     }
 
     private void TurnOnLight(GameObject[] lights)
