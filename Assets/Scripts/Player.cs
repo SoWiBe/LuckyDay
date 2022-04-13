@@ -16,8 +16,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] Joystick joystick;
 
-    
-
     private Animator _playerAnimator;
 
     private bool _isWalking = false;
@@ -58,8 +56,6 @@ public class Player : MonoBehaviour
     {
         completeLevels = PlayerPrefs.GetInt("CompleteLevels", 1);
     }
-
-  
 
     public void GetExtinguisher()
     {

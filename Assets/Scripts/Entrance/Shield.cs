@@ -14,20 +14,34 @@ public class Shield : MonoBehaviour
 
     [SerializeField] private Pickup[] inventoryItems;
     [SerializeField] private DialogueTrigger dialogueTrigger;
+    [SerializeField] private DialogueTrigger dialogueWithoutThings;
+    [SerializeField] private DialogueTrigger ;
 
     [SerializeField] PointControl[] pointControls;
     [SerializeField] private ConnectManager ConnectManager;
 
+    private bool isShowDialogue = false;
+    private bool isShowDialogueForFindThings = false;
+
     private void OnMouseDown()
     {
+
         if (!inventoryItems[0].isTaked)
         {
-            dialogueTrigger.StartDialog();
+            if(!isShowDialogueForFindThings)
+            {
+                isShowDialogueForFindThings = true;
+                dialogueWithoutThings.StartDialog();
+            }
             return;
         }
-
         if (ConnectManager.isGame)
         {
+            if(!isShowDialogue)
+            {
+                dialogueTrigger.StartDialog();
+                isShowDialogue = true;
+            }
             isOpenShield = !isOpenShield;
             canvasShield.SetActive(true);
             SetStatusActiveObjects();

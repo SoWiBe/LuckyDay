@@ -32,6 +32,7 @@ public class ExtinguisherManager : MonoBehaviour, IPointerDownHandler, IPointerU
         if (_isStart)
         {
             SaveTime();
+            SendResults();
         }
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -61,6 +62,10 @@ public class ExtinguisherManager : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         systemPutOutFire.Play();
         soundFirePutOut.Play();
+        
+    }
+    public void SendResults()
+    {
         fire.CheckToPutOutFire(timeTouch);
     }
 

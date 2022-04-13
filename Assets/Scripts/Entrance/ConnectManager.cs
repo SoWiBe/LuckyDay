@@ -11,6 +11,7 @@ public class ConnectManager : MonoBehaviour
     [SerializeField] private Shield shieldOpen;
     [SerializeField] private AudioSource lightOn;
     [SerializeField] private GameObject chooseWays;
+    [SerializeField] private DialogueTrigger dialogueAfterFinish;
     public bool isGame { get; set; }
     private bool isStepOne { get; set; }
     private bool isStepTwo { get; set; }
@@ -49,7 +50,6 @@ public class ConnectManager : MonoBehaviour
             isStepOne = false;
             TurnOnLight(roomLights);
         }
-        
     }
     private void CheckStepTwo()
     {
@@ -82,6 +82,7 @@ public class ConnectManager : MonoBehaviour
         shieldOpen.CloseShield();
         lightOn.Play();
         chooseWays.SetActive(true);
+        dialogueAfterFinish.StartDialog();
     }
 
     private void TurnOnLight(GameObject[] lights)

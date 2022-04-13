@@ -50,9 +50,8 @@ public class Fire : MonoBehaviour
     {
         if (_isFireOut && !_isFireDone)
         {
-            count++;
-
-            if (timePutOut == 5)
+            
+            if (timePutOut <= -1 && timePutOut > -1.5)
             {
                 Destroy(firesElements[0]);
                 Destroy(firesElements[1]);
@@ -61,7 +60,7 @@ public class Fire : MonoBehaviour
                 Destroy(smokeElements[1]);
                 Destroy(smokeElements[5]);
             }
-            else if (timePutOut == 7)
+            else if (timePutOut <= -1.5 && timePutOut > -2.5)
             {
                 Destroy(firesElements[2]);
                 Destroy(firesElements[3]);
@@ -70,14 +69,14 @@ public class Fire : MonoBehaviour
                 Destroy(smokeElements[3]);
                 Destroy(smokeElements[6]);
             }
-            else if (timePutOut == 9)
+            else if (timePutOut <= -2.5 && timePutOut > -3)
             {
                 Destroy(firesElements[4]);
                 Destroy(firesElements[8]);
                 Destroy(firesElements[7]);
                 Destroy(smokeElements[4]);
             }
-            else if (timePutOut == 11)
+            else if (timePutOut < -3.1)
             {
                 Destroy(smokeElements[7]);
                 Destroy(smokeElements[8]);
