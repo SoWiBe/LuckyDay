@@ -15,7 +15,6 @@ public class Shield : MonoBehaviour
     [SerializeField] private Pickup[] inventoryItems;
     [SerializeField] private DialogueTrigger dialogueTrigger;
     [SerializeField] private DialogueTrigger dialogueWithoutThings;
-    [SerializeField] private DialogueTrigger ;
 
     [SerializeField] PointControl[] pointControls;
     [SerializeField] private ConnectManager ConnectManager;

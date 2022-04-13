@@ -25,7 +25,6 @@ public class Fire : MonoBehaviour
     private Animator animatorText, animatorSiren, animatorPlayer, animatorWhiteScreen;
     private bool _isFireOut;
     private bool _isFireDone;
-    private int count = 0;
     public bool FireDone
     {
         get
