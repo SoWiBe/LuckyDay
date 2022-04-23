@@ -9,6 +9,11 @@ TagManager:
   - Dialog
   - Fire
   - Pena
+  - Entrance
+  - Shield
+  - Line
+  - StartPoint
+  - EndPoint
   layers:
   - Default
   - TransparentFX

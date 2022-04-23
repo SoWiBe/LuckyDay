@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    public GameObject item;
+    [SerializeField] private GameObject item;
     private Transform player;
+    private Material material;
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -13,6 +14,9 @@ public class Spawn : MonoBehaviour
     public void SpawnDroppedItem()
     {
         Vector2 playerPos = new Vector2(player.position.x + 2, player.position.y - 1);
-        Instantiate(item, playerPos, Quaternion.identity);
+        GameObject game = (GameObject)Instantiate(item, playerPos, Quaternion.identity);
+        game.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
+        game.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        game.GetComponent<SpriteRenderer>().material = Resources.Load("Light") as Material;
     }
 }

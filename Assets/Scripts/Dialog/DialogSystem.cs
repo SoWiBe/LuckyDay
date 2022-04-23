@@ -34,7 +34,6 @@ public class DialogSystem : MonoBehaviour
 
     public void StartDialogue (Dialog dialog)
     {
-        Debug.Log("Starting conversation dialog: " + dialog.name);
         OpenDialogWindow();
         sentences.Clear();
 
@@ -68,7 +67,7 @@ public class DialogSystem : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             DisplayNextSentence();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
         }
     }
 

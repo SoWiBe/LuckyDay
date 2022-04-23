@@ -8,142 +8,97 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform holdExtinguisherPoint;
 
-    [SerializeField] private ParticleSystem systemPutOutFire;
+    [SerializeField] private GameObject buttonExtinguisher;
 
-    [SerializeField] private GameObject closeDoor;
+    [SerializeField] private LevelManager levelManager;
 
-    [SerializeField] private AudioSource soundDoorOpen;
+    [SerializeField] private Fire fire;
 
-    [SerializeField] private AudioSource soundFirePutOut;
-
-    [SerializeField] private GameObject doorImage;
-
-    private bool _joystickTouchStart = false;
-
-    private Vector2 _touchStartPoint;
-
-    private Vector2 _touchEndPoint;
+    [SerializeField] Joystick joystick;
 
     private Animator _playerAnimator;
 
-    [SerializeField]
-    private Transform _joystickInnerCircle;
-
-    [SerializeField]
-    private Transform _joystickOuterCircle;
-    
     private bool _isWalking = false;
 
     private bool _isHandling = false;
 
-    private bool _isCanToHandThing = false;
+    private int completeLevels;
 
-    private bool _isCanToOpenDoor = false;
+    public bool Handling
+    {
+        set
+        {
+            _isHandling = value;
+        }
+    }
+
+    private bool _isCanToHandThing = false;
     
     private void Start()
     {
         _playerAnimator = GetComponent<Animator>();
+        completeLevels = levelManager.CompleteLevels;
     }
 
     private void Update()
     {
         UpdateMovement();
-        UpdateJoystick();
-        UpdateJoystickMovement();
         UpdateAnimation();
-        PutOutFire();
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (_isCanToHandThing && !_isHandling)
-            {
-                _playerAnimator.SetBool("isExtinguisher", true);
-                extinguisher.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Fire");
-                this._isHandling = true;
-            }
-
-            if (_isCanToOpenDoor)
-            {
-                _playerAnimator.SetTrigger("interactTrigger");
-                Destroy(closeDoor);
-                doorImage.SetActive(true);
-                soundDoorOpen.Play();
-                this._isCanToOpenDoor = false;
-            }
-        }
-
+        UpdateLevels();
         if (_isHandling)
-            extinguisher.transform.position = holdExtinguisherPoint.position;
-
-    }
-
-    private void PutOutFire()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && _isHandling)
         {
-            systemPutOutFire.Play();
-            soundFirePutOut.Play();
+            SetPositionToExtinguisher();
+            buttonExtinguisher.SetActive(true);
         }
     }
 
-    private void UpdateJoystick()
+    private void UpdateLevels()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _touchStartPoint =
-                Camera
-                    .main
-                    .ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                        Input.mousePosition.y,
-                        Camera.main.transform.position.z));
+        completeLevels = PlayerPrefs.GetInt("CompleteLevels", 1);
+    }
 
-            _joystickInnerCircle.transform.position = _touchStartPoint;
-            _joystickInnerCircle.GetComponent<SpriteRenderer>().enabled = true;
-            _joystickOuterCircle.transform.position = _touchStartPoint;
-            _joystickOuterCircle.GetComponent<SpriteRenderer>().enabled = true;
-        }
-
-        if (Input.GetMouseButton(0))
+    public void GetExtinguisher()
+    {
+        if (_isCanToHandThing && !_isHandling)
         {
-            _joystickTouchStart = true;
-            _touchEndPoint =
-                Camera
-                    .main
-                    .ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                        Input.mousePosition.y,
-                        Camera.main.transform.position.z));
-        }
-        else
-        {
-            _joystickTouchStart = false;
-            _joystickInnerCircle.GetComponent<SpriteRenderer>().enabled = false;
-            _joystickOuterCircle.GetComponent<SpriteRenderer>().enabled = false;
+            _playerAnimator.SetBool("isExtinguisher", true);
+            extinguisher.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Fire");
+            this._isHandling = true;
+            SetPositionToExtinguisher();
         }
     }
 
-    private void UpdateJoystickMovement()
+    private void SetPositionToExtinguisher()
     {
-        if (_joystickTouchStart)
+        extinguisher.transform.position = holdExtinguisherPoint.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Extinguisher"))
         {
-            _isWalking = true;
-            Vector2 offset = _touchEndPoint - _touchStartPoint;
-            Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
-            transform.Translate(direction * _speed * Time.deltaTime);
-
-            CheckToFlip(direction.x);
-
-            _joystickInnerCircle.transform.position =
-                new Vector2(_touchStartPoint.x + direction.x,
-                    _touchStartPoint.y + direction.y);
+            this._isCanToHandThing = true;
         }
-        else
-            _isWalking = false;
+
+    }
+
+    private void SetNextLevel()
+    {
+        levelManager.NextLevel();
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Extinguisher"))
+        {
+            this._isCanToHandThing = false;
+        }
     }
 
     private void UpdateMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = joystick.Horizontal;
+        float vertical = joystick.Vertical;
 
         CheckToFlip(horizontal);
         if (_isHandling)
@@ -162,10 +117,14 @@ public class Player : MonoBehaviour
     {
         if (_isWalking && !_isHandling)
         {
+            _playerAnimator.SetBool("isExtinguisher", false);
+            _playerAnimator.SetBool("isWalkingWithThing", false);
             _playerAnimator.SetBool("isWalking", true);
         }
         else if (!_isWalking && !_isHandling)
         {
+            _playerAnimator.SetBool("isWalkingWithThing", false);
+            _playerAnimator.SetBool("isExtinguisher", false);
             _playerAnimator.SetBool("isWalking", false);
         }
         else if (_isHandling && _isWalking)
@@ -173,7 +132,10 @@ public class Player : MonoBehaviour
             _playerAnimator.SetBool("isWalking", false);
             _playerAnimator.SetBool("isExtinguisher", true);
             _playerAnimator.SetBool("isWalkingWithThing", true);
-
+        } 
+        else if (_isHandling && !_isWalking)
+        {
+            _playerAnimator.SetBool("isWalkingWithThing", false);
         }
     }
 
@@ -198,34 +160,4 @@ public class Player : MonoBehaviour
 
         thing.transform.localScale = localScale;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Extinguisher"))
-        {
-            this._isCanToHandThing = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Extinguisher"))
-        {
-            this._isCanToHandThing = false;
-        }
-
-        if (collision.CompareTag("Door"))
-        {
-            this._isCanToOpenDoor = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Door")
-        {
-            this._isCanToOpenDoor = true;
-        }
-    }
-
 }
