@@ -6,6 +6,7 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject continueBtn;
     [SerializeField] private GameObject closeImage;
+    [SerializeField] private GameObject stages;
 
     private Button btnContinue;
     [SerializeField]
@@ -19,7 +20,10 @@ public class Menu : MonoBehaviour
         btnStages.interactable = false;
         closeImage.SetActive(true);
         completeLevels = PlayerPrefs.GetInt("CompleteLevels");
-        if(completeLevels > 1)
+        btnContinue.interactable = true;
+        btnStages.interactable = true;
+        closeImage.SetActive(false);
+        if (completeLevels > 1)
         {
             btnContinue.interactable = true;
             btnStages.interactable = true;
@@ -37,17 +41,18 @@ public class Menu : MonoBehaviour
         btnContinue.interactable = false;
         btnStages.interactable = false;
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene("Prolog");
+        StartProlog();
     }
     
     public void TryAgain()
     {
-        SceneManager.LoadScene("Prolog");
+        
+        SceneTransition.SwitchToScene("Prolog");
     }
 
     public void OpenMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneTransition.SwitchToScene("Menu");
     }
 
     public void Continue()
@@ -58,16 +63,22 @@ public class Menu : MonoBehaviour
 
     public void OpenStages()
     {
-        SceneManager.LoadScene(1);
+        stages.SetActive(true);
+    }
+
+    public void CloseStages()
+    {
+        stages.SetActive(false);
     }
 
     public void StartProlog()
     {
-        SceneManager.LoadScene("Prolog");
+
+        SceneTransition.SwitchToScene("Prolog");
     }
 
     public void StartNightDay()
     {
-        SceneManager.LoadScene("NightDay");
+        SceneTransition.SwitchToScene("NightDay");
     }
 }

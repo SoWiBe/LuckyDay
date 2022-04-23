@@ -12,6 +12,7 @@ public class ConnectManager : MonoBehaviour
     [SerializeField] private AudioSource lightOn;
     [SerializeField] private GameObject chooseWays;
     [SerializeField] private DialogueTrigger dialogueAfterFinish;
+    [SerializeField] private ShieldManager shieldManager;
     public bool isGame { get; set; }
     private bool isStepOne { get; set; }
     private bool isStepTwo { get; set; }
@@ -79,7 +80,7 @@ public class ConnectManager : MonoBehaviour
     private void SetGameFinal()
     {
         isGame = false;
-        shieldOpen.CloseShield();
+        shieldManager.CloseShield();
         lightOn.Play();
         chooseWays.SetActive(true);
         dialogueAfterFinish.StartDialog();

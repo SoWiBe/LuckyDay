@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,18 @@ public class Fire : MonoBehaviour
 
     private Animator animatorText, animatorSiren, animatorPlayer, animatorWhiteScreen;
     private bool _isFireOut;
+    public bool FireOut
+    {
+        get
+        {
+            return _isFireOut;
+        }
+        set
+        {
+            _isFireOut = value;
+        }
+    }
+
     private bool _isFireDone;
     public bool FireDone
     {
@@ -49,8 +62,7 @@ public class Fire : MonoBehaviour
     {
         if (_isFireOut && !_isFireDone)
         {
-            
-            if (timePutOut <= -1 && timePutOut > -1.5)
+            if (timePutOut <= 2)
             {
                 Destroy(firesElements[0]);
                 Destroy(firesElements[1]);
@@ -59,7 +71,7 @@ public class Fire : MonoBehaviour
                 Destroy(smokeElements[1]);
                 Destroy(smokeElements[5]);
             }
-            else if (timePutOut <= -1.5 && timePutOut > -2.5)
+            else if (timePutOut <= 3)
             {
                 Destroy(firesElements[2]);
                 Destroy(firesElements[3]);
@@ -68,14 +80,14 @@ public class Fire : MonoBehaviour
                 Destroy(smokeElements[3]);
                 Destroy(smokeElements[6]);
             }
-            else if (timePutOut <= -2.5 && timePutOut > -3)
+            else if (timePutOut <= 4)
             {
                 Destroy(firesElements[4]);
                 Destroy(firesElements[8]);
                 Destroy(firesElements[7]);
                 Destroy(smokeElements[4]);
             }
-            else if (timePutOut < -3.1)
+            else if (timePutOut < 5)
             {
                 Destroy(smokeElements[7]);
                 Destroy(smokeElements[8]);
@@ -102,7 +114,17 @@ public class Fire : MonoBehaviour
             btnExtinguisher.SetActive(false);
             Invoke("PlaySoundDoor", 1f);
             SetPositionToExtinguisher();
+
+            StartCoroutine(LoadNightDay());
         }
+    }
+
+    IEnumerator LoadNightDay()
+    {
+        yield return new WaitForSeconds(7);
+
+        StartWhiteScreen();
+        SceneTransition.SwitchToScene("NightDay");
     }
     public void PlaySoundDoor()
     {

@@ -80,16 +80,6 @@ public class Player : MonoBehaviour
             this._isCanToHandThing = true;
         }
 
-        if (collision.CompareTag("Entrance") && fire.FireDone)
-        {
-            fire.StartWhiteScreen();
-            int completeLevels = PlayerPrefs.GetInt("CompleteLevels");
-            if(completeLevels < 2)
-            {
-                PlayerPrefs.SetInt("CompleteLevels", 2);
-            }
-            Invoke("SetNextLevel", 4f);
-        }
     }
 
     private void SetNextLevel()

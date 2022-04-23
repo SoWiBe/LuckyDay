@@ -11,7 +11,7 @@ public class ExtinguisherManager : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] private Fire fire;
 
     private bool _isStart = false;
-    private float startTime;
+    private float startTime, endTime;
     private float timeTouch;
 
     public float TimeTouch
@@ -31,14 +31,25 @@ public class ExtinguisherManager : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         if (_isStart)
         {
-            SaveTime();
-            SendResults();
+            if(fire.FireOut)
+            {
+                startTime += Time.deltaTime;
+                Debug.Log(startTime);
+                SendResults();
+            }
         }
     }
+
+    private IEnumerator StartTime(float timeFireDone)
+    {
+        Debug.Log(timeFireDone);
+        yield return new WaitForSeconds(timeFireDone);
+        
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         _isStart = true;
-        StartTime();
         OutFire();
     }
 
@@ -48,15 +59,8 @@ public class ExtinguisherManager : MonoBehaviour, IPointerDownHandler, IPointerU
         StopPena();
     }
 
-    public void StartTime()
-    {
-        startTime = Time.deltaTime;
-    }
-
     public void SaveTime()
     {
-        timeTouch += Time.deltaTime - startTime;
-        Debug.Log(timeTouch % 60);
     }
     public void OutFire()
     {
@@ -66,7 +70,7 @@ public class ExtinguisherManager : MonoBehaviour, IPointerDownHandler, IPointerU
     }
     public void SendResults()
     {
-        fire.CheckToPutOutFire(timeTouch);
+        fire.CheckToPutOutFire(startTime);
     }
 
     public void StopPena()

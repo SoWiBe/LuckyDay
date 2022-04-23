@@ -1,22 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    private bool isOpenShield = false;
+    public bool isOpenShield = false;
     [SerializeField] private GameObject inventory;
     [SerializeField] private GameObject joystick;
-    [SerializeField] private GameObject canvasShield;
+    public GameObject canvasShield;
     [SerializeField] private GameObject player;
+
     [SerializeField] private GameObject chest;
 
     [SerializeField] private Pickup[] inventoryItems;
     [SerializeField] private DialogueTrigger dialogueTrigger;
     [SerializeField] private DialogueTrigger dialogueWithoutThings;
 
-    [SerializeField] PointControl[] pointControls;
+    public PointControl[] pointControls;
     [SerializeField] private ConnectManager ConnectManager;
 
     private bool isShowDialogue = false;
@@ -44,10 +44,11 @@ public class Shield : MonoBehaviour
             isOpenShield = !isOpenShield;
             canvasShield.SetActive(true);
             SetStatusActiveObjects();
+            gameObject.SetActive(false);
         }
     }
 
-    private void SetStatusActiveObjects()
+    public void SetStatusActiveObjects()
     {
         inventory.SetActive(!isOpenShield);
         player.SetActive(!isOpenShield);
@@ -55,14 +56,5 @@ public class Shield : MonoBehaviour
         chest.SetActive(!isOpenShield);
     }
 
-    public void CloseShield()
-    {
-        for (int i = 0; i < pointControls.Length; i++)
-        {
-            pointControls[i].SetBasePositionLine();
-        }
-        isOpenShield = !isOpenShield;
-        canvasShield.SetActive(isOpenShield);
-        SetStatusActiveObjects();
-    }
+   
 }
