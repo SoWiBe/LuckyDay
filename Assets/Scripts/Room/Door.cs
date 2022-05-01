@@ -20,6 +20,7 @@ public class Door : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        Debug.Log(1);
         OpenDoor();
     }
 }

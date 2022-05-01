@@ -80,7 +80,7 @@ public class ConnectManager : MonoBehaviour
     private void SetGameFinal()
     {
         isGame = false;
-        shieldManager.CloseShield();
+        shieldOpen.CloseShield();
         lightOn.Play();
         chooseWays.SetActive(true);
         dialogueAfterFinish.StartDialog();
@@ -93,5 +93,7 @@ public class ConnectManager : MonoBehaviour
             item.SetActive(true);
         }
     }
+
+    
 
 }

@@ -22,7 +22,8 @@ public class PauseManager : MonoBehaviour
     {
         if (secondSound.isPlaying && mainSoundTheme.isPlaying)
         {
-            secondSound.Pause();
+            if(secondSound != null)
+                secondSound.Pause();
             mainSoundTheme.Pause();
             isMusic = true;
         }
@@ -33,7 +34,8 @@ public class PauseManager : MonoBehaviour
     {
         if (isMusic)
         {
-            secondSound.Play();
+            if (secondSound != null)
+                secondSound.Play();
             mainSoundTheme.Play();
         }
 

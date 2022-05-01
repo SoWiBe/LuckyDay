@@ -1233,11 +1233,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3646939005659746859, guid: 294ac0ccd5d1c21429f30abeeace0afa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 3646939005659746859, guid: 294ac0ccd5d1c21429f30abeeace0afa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.56
+      value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 3646939005659746859, guid: 294ac0ccd5d1c21429f30abeeace0afa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2532,24 +2532,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2024607843613740169, guid: 33677f8514f4ee8468e288ddbfeda762, type: 3}
   m_PrefabInstance: {fileID: 1273002639}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &364700292 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2024607843494333380, guid: 33677f8514f4ee8468e288ddbfeda762, type: 3}
-  m_PrefabInstance: {fileID: 1273002639}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &364700293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364700292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13cd1f6ed0734249905a85c77946cd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shieldObj: {fileID: 364700292}
 --- !u!1 &365787718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,7 +2598,7 @@ MonoBehaviour:
   lightOn: {fileID: 1996124255}
   chooseWays: {fileID: 1656100552}
   dialogueAfterFinish: {fileID: 1350221137}
-  shieldManager: {fileID: 364700293}
+  shieldManager: {fileID: 0}
 --- !u!1001 &368210687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2954,11 +2936,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7040541689781310447, guid: 5d982c64b5da9f1478643ff110cab28c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.25
+      value: -0.65000004
       objectReference: {fileID: 0}
     - target: {fileID: 7040541689781310447, guid: 5d982c64b5da9f1478643ff110cab28c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.37999994
+      value: -0.029999912
       objectReference: {fileID: 0}
     - target: {fileID: 7040541689781310447, guid: 5d982c64b5da9f1478643ff110cab28c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5023,7 +5005,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2024607843494333379, guid: 33677f8514f4ee8468e288ddbfeda762, type: 3}
   m_PrefabInstance: {fileID: 1273002639}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364700292}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 967d4cda764cb3b4fa2964009db9b489, type: 3}
@@ -5933,7 +5915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &783289307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6521,6 +6503,7 @@ RectTransform:
   - {fileID: 842496450}
   - {fileID: 705573814}
   - {fileID: 1789567831}
+  - {fileID: 1151395026}
   - {fileID: 1257393390}
   m_Father: {fileID: 783289310}
   m_RootOrder: 0
@@ -7492,11 +7475,11 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151395024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -108}
-  m_LocalScale: {x: 108, y: 108, z: 108}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 1257393390}
-  m_RootOrder: 1
+  m_Father: {fileID: 909573559}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7984,9 +7967,8 @@ RectTransform:
   m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
   m_Children:
   - {fileID: 1417165949}
-  - {fileID: 1151395026}
   m_Father: {fileID: 909573559}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8037,8 +8019,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 364700293}
-        m_TargetAssemblyTypeName: ShieldManager, Assembly-CSharp
+      - m_Target: {fileID: 737279628}
+        m_TargetAssemblyTypeName: Shield, Assembly-CSharp
         m_MethodName: CloseShield
         m_Mode: 1
         m_Arguments:
@@ -9900,7 +9882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541907421}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -0.37999994, z: -10}
+  m_LocalPosition: {x: -0.65000004, y: -0.029999912, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

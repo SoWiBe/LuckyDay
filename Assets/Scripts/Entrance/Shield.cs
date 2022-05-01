@@ -56,5 +56,16 @@ public class Shield : MonoBehaviour
         chest.SetActive(!isOpenShield);
     }
 
-   
+    public void CloseShield()
+    {
+        for (int i = 0; i < pointControls.Length; i++)
+        {
+            pointControls[i].SetBasePositionLine();
+        }
+        isOpenShield = !isOpenShield;
+        canvasShield.SetActive(isOpenShield);
+        SetStatusActiveObjects();
+    }
+
+
 }

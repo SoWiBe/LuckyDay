@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject continueBtn;
     [SerializeField] private GameObject closeImage;
     [SerializeField] private GameObject stages;
+    [SerializeField] private GameObject settings;
 
     private Button btnContinue;
     [SerializeField]
@@ -69,6 +70,16 @@ public class Menu : MonoBehaviour
     public void CloseStages()
     {
         stages.SetActive(false);
+    }
+
+    public void OpenSettings()
+    {
+        settings.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settings.SetActive(false);
     }
 
     public void StartProlog()
