@@ -12,6 +12,7 @@ public class DialogSystem : MonoBehaviour
     [SerializeField] private Text dialogueTextPre;
     [SerializeField] private Text dialogueText;
     [SerializeField] private GameObject dialogueWindow;
+    [SerializeField] private Image imageDialog;
 
     private Queue<string> sentences;
 

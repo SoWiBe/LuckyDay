@@ -3153,9 +3153,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5348774057143251530, guid: d297d79b42482a94cb65f41129e19860, type: 3}
+      propertyPath: UVModule.sprites.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5348774057143251530, guid: d297d79b42482a94cb65f41129e19860, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5348774057143251530, guid: d297d79b42482a94cb65f41129e19860, type: 3}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: -424478134586275118, guid: 0ec998535f993644db589855ef9224df, type: 3}
     - target: {fileID: 5348774057143251531, guid: d297d79b42482a94cb65f41129e19860, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.36
