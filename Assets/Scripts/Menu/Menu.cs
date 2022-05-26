@@ -42,7 +42,8 @@ public class Menu : MonoBehaviour
         btnContinue.interactable = false;
         btnStages.interactable = false;
         PlayerPrefs.DeleteAll();
-        StartProlog();
+        SceneTransition.SwitchToScene("Road");
+        //StartProlog();
     }
     
     public void TryAgain()
