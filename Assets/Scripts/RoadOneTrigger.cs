@@ -8,7 +8,7 @@ public class RoadOneTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SceneTransition.SwitchToScene("Entrance");
+            SceneTransition.SwitchToScene("CloseToSchool");
         }
     }
 }

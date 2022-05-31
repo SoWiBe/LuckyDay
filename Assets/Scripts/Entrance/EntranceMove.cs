@@ -6,7 +6,7 @@ public class EntranceMove : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        GoByStairs();
+        GoByElevator();
     }
 
     public void GoByStairs()

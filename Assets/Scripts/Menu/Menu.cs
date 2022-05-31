@@ -16,19 +16,19 @@ public class Menu : MonoBehaviour
     private int completeLevels;
     private void Start()
     {
-        btnContinue = continueBtn.GetComponent<Button>();
-        closeImage.SetActive(true);
-        completeLevels = PlayerPrefs.GetInt("CompleteLevels");
-        if(btnContinue != null)
-            btnContinue.interactable = true;
-        btnStages.interactable = true;
-        closeImage.SetActive(false);
-        if (completeLevels > 1)
-        {
-            btnContinue.interactable = true;
-            btnStages.interactable = true;
-            closeImage.SetActive(false);
-        }
+        //btnContinue = continueBtn.GetComponent<Button>();
+        //closeImage.SetActive(true);
+        //completeLevels = PlayerPrefs.GetInt("CompleteLevels");
+        //if(btnContinue != null)
+        //    btnContinue.interactable = true;
+        //btnStages.interactable = true;
+        //closeImage.SetActive(false);
+        //if (completeLevels > 1)
+        //{
+        //    btnContinue.interactable = true;
+        //    btnStages.interactable = true;
+        //    closeImage.SetActive(false);
+        //}
     }
 
     private void Update()
@@ -38,9 +38,9 @@ public class Menu : MonoBehaviour
 
     public void CreateNewGame()
     {
-        if (btnContinue != null)
-            btnContinue.interactable = false;
-        btnStages.interactable = false;
+        //if (btnContinue != null)
+        //    btnContinue.interactable = false;
+        //btnStages.interactable = false;
         PlayerPrefs.DeleteAll();
         //SceneTransition.SwitchToScene("");
         StartProlog();
@@ -91,5 +91,25 @@ public class Menu : MonoBehaviour
     public void StartNightDay()
     {
         SceneTransition.SwitchToScene("NightDay");
+    }
+
+    public void StartOutOfHome()
+    {
+        SceneTransition.SwitchToScene("WayToSchool");
+    }
+
+    public void StartRoad()
+    {
+        SceneTransition.SwitchToScene("Road");
+    }
+
+    public void StartSchool()
+    {
+        SceneTransition.SwitchToScene("SchoolMain");
+    }
+
+    public void StartFight()
+    {
+        SceneTransition.SwitchToScene("Fight");
     }
 }
