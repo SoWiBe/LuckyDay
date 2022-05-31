@@ -124,7 +124,7 @@ public class Fire : MonoBehaviour
         yield return new WaitForSeconds(7);
 
         StartWhiteScreen();
-        SceneTransition.SwitchToScene("NightDay");
+        SceneTransition.SwitchToScene("Road");
     }
     public void PlaySoundDoor()
     {

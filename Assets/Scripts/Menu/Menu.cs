@@ -17,11 +17,10 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         btnContinue = continueBtn.GetComponent<Button>();
-        btnContinue.interactable = false;
-        btnStages.interactable = false;
         closeImage.SetActive(true);
         completeLevels = PlayerPrefs.GetInt("CompleteLevels");
-        btnContinue.interactable = true;
+        if(btnContinue != null)
+            btnContinue.interactable = true;
         btnStages.interactable = true;
         closeImage.SetActive(false);
         if (completeLevels > 1)
@@ -39,16 +38,16 @@ public class Menu : MonoBehaviour
 
     public void CreateNewGame()
     {
-        btnContinue.interactable = false;
+        if (btnContinue != null)
+            btnContinue.interactable = false;
         btnStages.interactable = false;
         PlayerPrefs.DeleteAll();
-        SceneTransition.SwitchToScene("Road");
-        //StartProlog();
+        //SceneTransition.SwitchToScene("");
+        StartProlog();
     }
     
     public void TryAgain()
     {
-        
         SceneTransition.SwitchToScene("Prolog");
     }
 

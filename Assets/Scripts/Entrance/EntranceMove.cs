@@ -11,7 +11,7 @@ public class EntranceMove : MonoBehaviour
 
     public void GoByStairs()
     {
-        SceneTransition.SwitchToScene("WayToSchool");
+        SceneTransition.SwitchToScene("Final");
     }
 
     public void GoByElevator()

@@ -9,9 +9,24 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 2cc74ae758b800348807845de6b86e9b
   - enabled: 1
+    path: Assets/Scenes/Prolog.unity
+    guid: 2f8e1b3a47b0a6c45a893c1b81a29619
+  - enabled: 1
     path: Assets/Scenes/Road.unity
     guid: 9d573cfae95bdc143b82d0b96d2bf1f1
   - enabled: 1
+    path: Assets/Scenes/Road 1.unity
+    guid: 7d111e7a045f87c4597ed5b9eccdebac
+  - enabled: 1
+    path: Assets/Scenes/WayToSchool 1.unity
+    guid: 6adc9ec5bb73e094ea9fe530843a5490
+  - enabled: 1
+    path: Assets/Scenes/Entrance.unity
+    guid: 19413e37c85000e4eb438946dee487d5
+  - enabled: 1
     path: Assets/Scenes/Die.unity
     guid: 059e1e54d6ed8544a9931590efe279ee
+  - enabled: 1
+    path: Assets/Scenes/Final.unity
+    guid: 452e56c9e7932174595987ce5f1d5547
   m_configObjects: {}
