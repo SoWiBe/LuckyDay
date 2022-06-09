@@ -1747,6 +1747,7 @@ MonoBehaviour:
   btnExtinguisher: {fileID: 0}
   audioAfterFireDone: {fileID: 0}
   whiteFinal: {fileID: 0}
+  extinguisherManager: {fileID: 0}
 --- !u!1 &5355700866262306043
 GameObject:
   m_ObjectHideFlags: 0

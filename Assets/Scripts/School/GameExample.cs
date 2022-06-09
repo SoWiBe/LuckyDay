@@ -9,6 +9,7 @@ public class GameExample : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] examples;
     [SerializeField] private Text[] txtAnswers;
+    [SerializeField] private Text[] numbersOfAnswers;
     [SerializeField] private Image[] imagesForAnswers;
     [SerializeField] private Sprite correctSprite, incorrectSprite;
     [SerializeField] private Table table;
@@ -84,6 +85,7 @@ public class GameExample : MonoBehaviour
         {
             Debug.Log("Все верно!");
             imagesForAnswers[CurrentPosition].sprite = correctSprite;
+            numbersOfAnswers[CurrentPosition].text = correctAnswer.ToString();
             CurrentPosition++;
         }
         if (CurrentPosition < 4)

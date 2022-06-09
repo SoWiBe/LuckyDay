@@ -22,15 +22,18 @@ public class Shield : MonoBehaviour
     private bool isShowDialogue = false;
     private bool isShowDialogueForFindThings = false;
 
+    [SerializeField] private AudioSource audio;
+
     private void OnMouseDown()
     {
 
-        if (!inventoryItems[0].isTaked)
+        if (!inventoryItems[1].isTaked)
         {
             if(!isShowDialogueForFindThings)
             {
                 isShowDialogueForFindThings = true;
                 dialogueWithoutThings.StartDialog();
+                audio.Play();
             }
             return;
         }

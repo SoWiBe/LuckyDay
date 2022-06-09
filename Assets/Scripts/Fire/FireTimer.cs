@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -49,6 +50,6 @@ public class FireTimer : MonoBehaviour
         float minutes = Mathf.FloorToInt(_timeLeft / 60);
         float seconds = Mathf.FloorToInt(_timeLeft % 60);
 
-        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+        timerText.text = Convert.ToInt32(_timeLeft).ToString();
     }
 }

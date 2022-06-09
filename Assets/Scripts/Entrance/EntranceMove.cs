@@ -16,6 +16,6 @@ public class EntranceMove : MonoBehaviour
 
     public void GoByElevator()
     {
-        SceneTransition.SwitchToScene("WayToSchool");
+        SceneTransition.SwitchToScene("Road");
     }
 }
