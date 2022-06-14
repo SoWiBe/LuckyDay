@@ -46,9 +46,13 @@ public class Shield : MonoBehaviour
             }
             isOpenShield = !isOpenShield;
             canvasShield.SetActive(true);
-            SetStatusActiveObjects();
             gameObject.SetActive(false);
+            SetStatusActiveObjects();
+            
         }
+
+        if(!ConnectManager.isGame)
+            gameObject.SetActive(false);
     }
 
     public void SetStatusActiveObjects()
@@ -66,9 +70,10 @@ public class Shield : MonoBehaviour
             pointControls[i].SetBasePositionLine();
         }
         isOpenShield = !isOpenShield;
-        canvasShield.SetActive(isOpenShield);
+        canvasShield.SetActive(false);
+        gameObject.SetActive(true);
         SetStatusActiveObjects();
+
+        Debug.Log("Hello");
     }
-
-
 }

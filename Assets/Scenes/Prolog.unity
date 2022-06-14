@@ -336,7 +336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60329388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.3, y: 8.83, z: -8.578037}
+  m_LocalPosition: {x: 27.47, y: 8.83, z: -8.578037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -375,7 +375,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.6033716, y: 0.20112395}
@@ -1033,6 +1033,10 @@ PrefabInstance:
     - target: {fileID: 2687838761555309403, guid: 973b4d720da63734088b9e5edad5d87f, type: 3}
       propertyPath: m_Name
       value: SceneTransition
+      objectReference: {fileID: 0}
+    - target: {fileID: 2687838761866381114, guid: 973b4d720da63734088b9e5edad5d87f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 973b4d720da63734088b9e5edad5d87f, type: 3}
@@ -3062,10 +3066,10 @@ RectTransform:
   m_Father: {fileID: 1671471142}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2160, y: 1080}
+  m_SizeDelta: {x: 0, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788223713
 MonoBehaviour:
@@ -3763,6 +3767,22 @@ PrefabInstance:
       propertyPath: dialogueTextPre
       value: 
       objectReference: {fileID: 710734459}
+    - target: {fileID: 3523343361155294751, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
+      propertyPath: m_Size.x
+      value: 3.0305796
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523343361155294751, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
+      propertyPath: m_Size.y
+      value: 8.412245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523343361155294751, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.0586505
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523343361155294751, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.34017658
+      objectReference: {fileID: 0}
     - target: {fileID: 3523343361155294947, guid: e8796d1724b80de4c81a34b507cbfa18, type: 3}
       propertyPath: player
       value: 
@@ -4599,6 +4619,14 @@ PrefabInstance:
     - target: {fileID: 4924169533629347134, guid: d1550e0bc7e8cc443bcb7c2f86298919, type: 3}
       propertyPath: m_Points.Array.data[1].y
       value: 0.84148407
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924169533731329889, guid: d1550e0bc7e8cc443bcb7c2f86298919, type: 3}
+      propertyPath: m_Size.x
+      value: 2.4349222
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924169533731329889, guid: d1550e0bc7e8cc443bcb7c2f86298919, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.007128179
       objectReference: {fileID: 0}
     - target: {fileID: 4924169533731416645, guid: d1550e0bc7e8cc443bcb7c2f86298919, type: 3}
       propertyPath: m_Color.b

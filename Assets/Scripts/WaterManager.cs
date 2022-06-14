@@ -19,13 +19,13 @@ public class WaterManager : MonoBehaviour, IPointerDownHandler
 
     IEnumerator DoWhat()
     {
+        stacan.SetActive(false);
+        window.SetActive(true);
+        gameObject.SetActive(false);
         foreach (GameObject fire in firesElements)
         {
             fire.SetActive(true);
             yield return new WaitForSeconds(1.1f);
         }
-        window.SetActive(true);
-        gameObject.SetActive(false);
-        stacan.SetActive(false);
     }
 }

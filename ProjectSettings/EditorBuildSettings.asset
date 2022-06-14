@@ -30,9 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SchoolMain.unity
     guid: f9227a2041c1b1b4aa0bf34a3976b0ff
   - enabled: 1
-    path: Assets/Scenes/Fight.unity
-    guid: 208e28a7807bb1e46b3563de6c55d01c
-  - enabled: 1
     path: Assets/Scenes/Die.unity
     guid: 059e1e54d6ed8544a9931590efe279ee
   - enabled: 1

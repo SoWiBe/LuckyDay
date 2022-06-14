@@ -104,9 +104,17 @@ public class GameExample : MonoBehaviour
 
     private void SetGameFinal()
     {
+        StartCoroutine(SetFinalScene());
         table.CloseTetrad();
         dialogue.StartDialog();
         timer.SetActive(false);
         textTimer.text = "";
+
+    }
+
+    IEnumerator SetFinalScene()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneTransition.SwitchToScene("Final");
     }
 }
